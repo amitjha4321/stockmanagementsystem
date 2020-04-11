@@ -26,10 +26,10 @@ public class UserController {
     @Autowired
     private RoleRepository roleRepository;
 
-    @GetMapping("/regg")
-    public String regtrial() {
-        return "avc";
-    }
+//    @GetMapping("/regg")
+//    public String regtrial() {
+//        return "avc";
+//    }
 
 //    @PostMapping("/saveuser")
 //    public String saveUser(@RequestParam("image") MultipartFile multipartFile,
