@@ -81,12 +81,12 @@
 
             <div class="form-group input-group">
                       <div class="input-group-prepend">
-                        <span class="input-group-text"> <i class="fa fa-admin"></i> </span>
+                        <span class="input-group-text"> <i class="fa fa-user"></i> </span>
                       </div>
                      <!-- <input name="role" class="form-control" placeholder="Assign Role">-->
-                      Assign Role:
-                       <select th:field="*{roles}" class="form-control" name="roles[0].id">
 
+                       <select th:field="*{roles}" class="form-control" name="roles[0].id">
+                        <option value="">--Assign Role--</option>
                       <option th:each="r: ${roles}" th:value="${r.id}" th:text="${r.name}"></option>
                       </select>
             </div>
