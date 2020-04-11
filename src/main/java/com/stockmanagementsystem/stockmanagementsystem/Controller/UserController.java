@@ -62,12 +62,8 @@ public class UserController {
 //        return "login";
 //    }
 
-    //    @GetMapping("/register")
-//    public String register( Model model){
-//        //System.out.println(role);
-//        //Role role = user.get
-//        model.addAttribute(role);
-//        return "register";
+    //    @Gesdfkakdfsadflhadfute(role);
+//        return "register";add
 //    }
     @GetMapping("/register")
     public String getAddUserForm(Model model) {
@@ -81,7 +77,7 @@ public class UserController {
         return "register";
     }
     @RequestMapping(value = {"/registration"}, method = RequestMethod.POST)
-    public String createNewUser(@Valid User user, BindingResult bindingResult, Model model) {
+    public String createNewUser(@Valid User user, BindingResult bindingResult, Model model,@RequestParam("image") MultipartFile multipartFile) {
 
         User userExists = userRepository.findByEmail(user.getEmail());
         if (userExists != null) {
@@ -95,6 +91,12 @@ public class UserController {
         }
 
         System.out.println(user);
+        user.setFilename(multipartFile.getOriginalFilename());
+        try {
+            user.setDataimage(multipartFile.getBytes());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         userRepository.save(user);
         model.addAttribute("successMessage", "User has been registered successfully");
         return "login";
