@@ -132,7 +132,7 @@ public class User {
                 ", password='" + password + '\'' +
                 ", phone='" + phone + '\'' +
                 ", filename='" + filename + '\'' +
-                ", dataimage=" + Arrays.toString(dataimage) +
+               // ", dataimage=" + Arrays.toString(dataimage) +
                 ", roles=" + roles +
                 '}';
     }
