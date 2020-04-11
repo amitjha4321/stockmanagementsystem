@@ -74,7 +74,7 @@ public class UserController {
         System.out.println(allRoles);
         model.addAttribute("roles", allRoles);
         model.addAttribute("user", new User());
-        return "register";
+        return "admin/register";
     }
     @RequestMapping(value = {"/registration"}, method = RequestMethod.POST)
     public String createNewUser(@Valid User user, BindingResult bindingResult, Model model,@RequestParam("image") MultipartFile multipartFile) {
@@ -87,7 +87,7 @@ public class UserController {
         }
         if (bindingResult.hasErrors()) {
             model.addAttribute("errormsg", "field invalid");
-            return "redirect:register";
+            return "redirect:/register";
         }
 
         System.out.println(user);
@@ -99,13 +99,14 @@ public class UserController {
         }
         userRepository.save(user);
         model.addAttribute("successMessage", "User has been registered successfully");
-        return "login";
+        return "/admin/login";
     }
 
     @GetMapping("/login")
     public String showLogin() {
         return "login";
     }
+
 
 
 }
