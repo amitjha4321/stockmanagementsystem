@@ -10,7 +10,7 @@ public class ApplicationController {
 
     @GetMapping("/index")
     public String goHome(){
-        return "index";
+        return "login";
     }
 
 }

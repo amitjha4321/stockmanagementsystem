@@ -1,6 +1,7 @@
 package com.stockmanagementsystem.stockmanagementsystem.models;
 
 import javax.persistence.*;
+import java.util.Arrays;
 import java.util.List;
 
 @Entity
@@ -118,5 +119,21 @@ public class User {
 
     public void setRoles(List<Role> roles) {
         this.roles = roles;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", fname='" + fname + '\'' +
+                ", mname='" + mname + '\'' +
+                ", lname='" + lname + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", phone='" + phone + '\'' +
+                ", filename='" + filename + '\'' +
+                ", dataimage=" + Arrays.toString(dataimage) +
+                ", roles=" + roles +
+                '}';
     }
 }
