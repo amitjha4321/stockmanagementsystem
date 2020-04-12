@@ -274,7 +274,8 @@
                             <span class="profile-ava">
                                 <img alt="" src="img/avatar1_small.jpg">
                             </span>
-                            <span class="username">Jenifer Smith</span>
+                             <!-- put link to pull user name from the database-->
+                            <span class="username">Welcome <span sec:authentication="principal.username">User</span></span>
                             <b class="caret"></b>
                         </a>
             <ul class="dropdown-menu extended logout">
@@ -310,7 +311,7 @@
     <!--header end-->
 
     <!--sidebar start-->
-    <div th:replace="/sidebar :: sidebar"></div>
+    <div th:replace="/admin/sidebar :: sidebar"></div>
     <!--sidebar end-->
 
     <!--main content start-->

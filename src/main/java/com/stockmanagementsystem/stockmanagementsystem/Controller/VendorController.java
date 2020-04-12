@@ -32,7 +32,7 @@ public class VendorController {
         List<Vendor> vendorList = vendorRepository.findAll();
         model.addAttribute("vendorlist",vendorList);
 
-        return "vendorlist";
+        return "/admin/vendorlist";
     }
     @GetMapping(value = "/addvendor")
     public String getAddVendorForm(Model model){
@@ -40,7 +40,7 @@ public class VendorController {
         System.out.println(retrive);
         model.addAttribute("vendors",retrive);
         model.addAttribute("vendor",new Vendor());
-        return "addvendor";
+        return "/admin/addvendor";
     }
 
     @PostMapping(value = "/add")
@@ -53,7 +53,7 @@ public class VendorController {
         model.addAttribute("vendorlist",retrive);
         //model.addAttribute("success","Vendor is added");
         model.addAttribute("vendor",new Vendor());
-        return "vendorlist";
+        return "admin/vendorlist";
     }
     @GetMapping("/generatereport/{format}")
     public ResponseEntity generateReport(@PathVariable String format) throws FileNotFoundException, JRException {

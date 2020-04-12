@@ -102,11 +102,20 @@ public class UserController {
         return "/admin/login";
     }
 
-    @GetMapping("/login")
+    @GetMapping(value = {"/login","/"})
     public String showLogin() {
-        return "login";
+        return "/admin/login";
     }
 
+    @PostMapping("/login")
+    public String doLogin(@RequestParam("email") String username, @RequestParam("password") String password) {
+        User user = userRepository.findByEmail(username);
+        if (user.getPassword().equals(password)) {
+            return "admin/dashboard";
+        } else {
+            return "admin/login";
+        }
+    }
 
 
 }
