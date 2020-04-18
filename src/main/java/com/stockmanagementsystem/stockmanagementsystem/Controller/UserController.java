@@ -102,19 +102,26 @@ public class UserController {
         return "/admin/login";
     }
 
-    @GetMapping(value = {"/login","/"})
-    public String showLogin() {
-        return "/admin/login";
-    }
+//    @GetMapping(value = {"/login","/"})
+//    public String showLogin() {
+//        return "/admin/login";
+//    }
+//
+//    @PostMapping("/login")
+//    public String doLogin(@RequestParam("email") String username, @RequestParam("password") String password) {
+//        User user = userRepository.findByEmail(username);
+//        if (user.getPassword().equals(password)) {
+//            return "admin/dashboard";
+//        } else {
+//            return "admin/login";
+//        }
+//    }
 
-    @PostMapping("/login")
-    public String doLogin(@RequestParam("email") String username, @RequestParam("password") String password) {
-        User user = userRepository.findByEmail(username);
-        if (user.getPassword().equals(password)) {
-            return "admin/dashboard";
-        } else {
-            return "admin/login";
-        }
+    @GetMapping("/userlist")
+    public String displayUserList(Model model){
+        List<User> userList= userRepository.findAll();
+        model.addAttribute("users",userList);
+        return "/admin/userlist";
     }
 
 

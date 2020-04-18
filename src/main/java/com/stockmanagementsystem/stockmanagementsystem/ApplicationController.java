@@ -8,9 +8,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 public class ApplicationController {
 
-    @GetMapping("/index")
+    @GetMapping("/")
     public String goHome(){
-        return "login";
+        return "dashboard";
     }
 
+    @GetMapping("/login")
+    public String login(){
+        return "/admin/login";
+    }
+
+    @GetMapping("/logout")
+    public String logout(){
+        return "/admin/login";
+    }
 }
