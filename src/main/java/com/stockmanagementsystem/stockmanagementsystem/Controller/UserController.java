@@ -2,9 +2,11 @@ package com.stockmanagementsystem.stockmanagementsystem.Controller;
 
 import com.stockmanagementsystem.stockmanagementsystem.models.Role;
 import com.stockmanagementsystem.stockmanagementsystem.models.User;
+import com.stockmanagementsystem.stockmanagementsystem.models.UserDetails;
 import com.stockmanagementsystem.stockmanagementsystem.repository.RoleRepository;
 import com.stockmanagementsystem.stockmanagementsystem.repository.UserRepository;
 
+import com.stockmanagementsystem.stockmanagementsystem.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
@@ -25,6 +27,9 @@ public class UserController {
 
     @Autowired
     private RoleRepository roleRepository;
+
+    @Autowired
+    private UserService userService;
 
 //    @GetMapping("/regg")
 //    public String regtrial() {
@@ -119,8 +124,9 @@ public class UserController {
 
     @GetMapping("/userlist")
     public String displayUserList(Model model){
-        List<User> userList= userRepository.findAll();
-        model.addAttribute("users",userList);
+        //List<User> userList= userRepository.findAll();
+        List<UserDetails> userDetailsList=userService.findAllUsers();
+        model.addAttribute("users",userDetailsList);
         return "/admin/userlist";
     }
 

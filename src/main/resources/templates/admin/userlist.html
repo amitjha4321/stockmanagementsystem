@@ -71,11 +71,14 @@
                             <th>First Name</th>
                             <th>Last Name</th>
                             <th>Email</th>
-                            <th>Password</th>
+
                             <th>Phone</th>
-                            <th>Image Name</th>
+
                             <th>Profile Image</th>
                             <th>Role</th>
+                            <th>Actions</th>
+                             <!--<th>Edit</th>-->
+                            <!-- <th>Delete</th>-->
                         </tr>
                       </thead>
 
@@ -85,12 +88,19 @@
                       <td th:text="${user.fname}"></td>
                       <td th:text="${user.lname}"></td>
                       <td th:text="${user.email}"></td>
-                      <td th:text="${user.password}"></td>
+
                       <td th:text="${user.phone}"></td>
-                      <td th:text="${user.filename}"></td>
+
                      <!-- <td><img th:src="@{'data:image/png;base64,'+${user.base64EncodedImage}}" height="50" width="50"/></td>-->
-                      <td><img th:src="@{'data:image/png;base64,'+${user.dataimage}}" height="40" width="40"/></td>
+                      <td><img th:src="@{'data:image/png;base64,'+${user.base64EncodedImage}}" height="40" width="40"/></td>
                       <td th:text="${user.roles[0].name}"></td>
+                      <td>
+                        <div class="btn-group">
+                        <a class="btn btn-primary">Edit</a>
+                        </div>
+                      </td>
+                      <!--<td><a href="" class="btn btn-warning">Edit</a></td>-->
+                      <!-- <td><a href="" class="btn btn-danger">Delete</a></td>-->
                   </tr>
 
                   </tbody>
@@ -108,6 +118,55 @@
     </div>
   </section>
   <!-- container section end -->
+  <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Update User</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="form-group">
+              <label for="recipient-name" class="col-form-label">Recipient:</label>
+              <input type="text" class="form-control" id="descriptionEdit" name="desc">
+            </div>
+
+            <div class="form-group">
+              <label for="recipient-name" class="col-form-label">Recipient:</label>
+              <input type="text" class="form-control" id="recipient-name">
+            </div>
+            <div class="form-group">
+              <label for="recipient-name" class="col-form-label">Recipient:</label>
+              <input type="text" class="form-control" id="recipient-name">
+            </div>
+            <div class="form-group">
+              <label for="recipient-name" class="col-form-label">Recipient:</label>
+              <input type="text" class="form-control" id="recipient-name">
+            </div>
+            <div class="form-group">
+              <label for="recipient-name" class="col-form-label">Recipient:</label>
+              <input type="text" class="form-control" id="recipient-name">
+            </div>
+            <div class="form-group">
+               <label for="recipient-name" class="col-form-label">Recipient:</label>
+               <input type="text" class="form-control" id="recipient-name">
+            </div>
+            <div class="form-group">
+               <label for="recipient-name" class="col-form-label">Recipient:</label>
+               <input type="text" class="form-control" id="recipient-name">
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Send message</button>
+        </div>
+      </div>
+    </div>
+  </div>
   <!-- javascripts -->
   <script src="/js/jquery.js"></script>
   <script src="/js/bootstrap.min.js"></script>
