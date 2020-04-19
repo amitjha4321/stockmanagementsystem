@@ -1,6 +1,5 @@
 package com.stockmanagementsystem.stockmanagementsystem.service;
 
-import com.stockmanagementsystem.stockmanagementsystem.models.Role;
 import com.stockmanagementsystem.stockmanagementsystem.models.User;
 import com.stockmanagementsystem.stockmanagementsystem.models.UserDetails;
 import com.stockmanagementsystem.stockmanagementsystem.repository.UserRepository;
@@ -10,6 +9,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
+import java.util.Optional;
 
 
 @Service
@@ -24,6 +24,7 @@ public class UserServiceImpl implements UserService {
        List<UserDetails> userDetailsList=new ArrayList<>();
         for (User user:userList) {
             UserDetails userDetails=new UserDetails();
+            userDetails.setId(user.getId());
             userDetails.setFname(user.getFname());
             userDetails.setLname(user.getLname());
             userDetails.setEmail(user.getEmail());
@@ -37,5 +38,10 @@ public class UserServiceImpl implements UserService {
         }
 
         return userDetailsList;
+    }
+
+    @Override
+    public Optional<User> findById(Integer id) {
+        return userRepository.findById(id);
     }
 }

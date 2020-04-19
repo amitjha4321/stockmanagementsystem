@@ -3,13 +3,21 @@ package com.stockmanagementsystem.stockmanagementsystem.models;
 import java.util.List;
 
 public class UserDetails {
-
+    private int id;
     private String fname;
     private String lname;
     private String email;
     private String phone;
     private List<Role> roles;
     private String base64EncodedImage;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getFname() {
         return fname;

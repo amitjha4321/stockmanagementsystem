@@ -18,9 +18,12 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.validation.Valid;
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class UserController {
+
+
 
     @Autowired
     private UserRepository userRepository;
@@ -130,5 +133,16 @@ public class UserController {
         return "/admin/userlist";
     }
 
+    @GetMapping("/users/findbyid")
+    @ResponseBody
+    public Optional<User> findById(int id){
+        return userService.findById(id);
+    }
 
+    @RequestMapping(value = "/users/update",method = {RequestMethod.PUT , RequestMethod.GET})
+    public String update(User user){
+
+        userRepository.save(user);
+        return "redirect:/userlist";
+    }
 }
