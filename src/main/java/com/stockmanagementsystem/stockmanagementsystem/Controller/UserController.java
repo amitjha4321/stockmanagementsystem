@@ -135,14 +135,13 @@ public class UserController {
 
     @GetMapping("/users/findbyid")
     @ResponseBody
-    public Optional<User> findById(int id){
+    public User findById(int id){
         return userService.findById(id);
     }
 
     @RequestMapping(value = "/users/update",method = {RequestMethod.PUT , RequestMethod.GET})
-    public String update(User user){
-
-        userRepository.save(user);
+    public String update(UserDetails user) throws Exception {
+            userService.updateUser(user);
         return "redirect:/userlist";
     }
 }

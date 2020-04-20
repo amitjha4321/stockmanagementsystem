@@ -9,5 +9,7 @@ import java.util.Optional;
 public interface UserService {
     List<UserDetails> findAllUsers();
 
-    Optional<User> findById(Integer id);
+    User findById(int id);
+
+    void updateUser(UserDetails userDetails) throws Exception;
 }

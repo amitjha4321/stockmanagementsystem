@@ -3,6 +3,7 @@ package com.stockmanagementsystem.stockmanagementsystem.service;
 import com.stockmanagementsystem.stockmanagementsystem.models.User;
 import com.stockmanagementsystem.stockmanagementsystem.models.UserDetails;
 import com.stockmanagementsystem.stockmanagementsystem.repository.UserRepository;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -41,7 +42,31 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Optional<User> findById(Integer id) {
-        return userRepository.findById(id);
+    public User findById(int id) {
+      return userRepository.findById(id);
     }
+
+    @Override
+    public void updateUser(UserDetails  userDetails) throws Exception {
+        User user=userRepository.findById(userDetails.getId());
+        if (user==null){
+            throw new Exception("User " + userDetails.getEmail() +"not found");
+        }
+        //BeanUtils.copyProperties(userDetails,user);
+
+        user.setFname(userDetails.getFname());
+        user.setLname(userDetails.getLname());
+        user.setEmail(userDetails.getEmail());
+        user.setPhone(userDetails.getPhone());
+        //user.setRoles(userDetails.getRoles());
+
+
+        //user.setPassword(user.getPassword());
+        //user.setRoles(user.getRoles());
+        //user.setFilename(user.getFilename());
+        //user.setDataimage(user.getDataimage());
+        userRepository.save(user);
+        //System.out.println("++++++++++++++++++++++++++"+user);
+    }
+
 }
