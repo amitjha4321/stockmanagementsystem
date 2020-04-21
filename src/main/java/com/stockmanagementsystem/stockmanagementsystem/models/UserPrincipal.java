@@ -4,7 +4,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.Collection;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class UserPrincipal implements UserDetails {
@@ -17,8 +17,17 @@ public class UserPrincipal implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return user.getRoles().stream().map(role -> new SimpleGrantedAuthority("ROLE_"+role))
-                .collect(Collectors.toList());
+        List<GrantedAuthority> grantedAuthorities1=new ArrayList<>();
+        Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
+        for (Role role : user.getRoles()){
+            grantedAuthorities.add(new SimpleGrantedAuthority(role.getName()));
+        }
+        System.out.println("upadated hope this works now" + grantedAuthorities);
+        System.out.println("this is the main cause"+ user.getRoles());
+
+//        return user.getRoles().stream().map(role -> new SimpleGrantedAuthority("ROLE_"+role))
+//                .collect(Collectors.toList());
+        return grantedAuthorities;
     }
 
     @Override

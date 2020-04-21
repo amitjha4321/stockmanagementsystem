@@ -17,17 +17,17 @@
                 <a class="" href="dashboard.html">
                     <i class="icon_document_alt"></i>
                     <span>Forms</span>
-                    <span class="menu-arrow arrow_carrot-right"></span>
+
                 </a>
             </li>
 
-            <li class="sub-menu">
+            <li sec:authorize="hasAuthority('ADMIN')" class="sub-menu">
                 <a href="javascript:;" class="">
                     <i class="icon_document_alt"></i>
                     <span>ADD</span>
                     <span class="menu-arrow arrow_carrot-right"></span>
                 </a>
-                <ul class="sub">
+                <ul  class="sub">
                     <!--Add functionality -->
                     <li><a class="" th:href="@{/addvendor}">Add Vendor</a></li>
                     <li><a class="" th:href="@{/register}">Add User</a></li>

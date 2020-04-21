@@ -20,6 +20,9 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
+    private CustomLoginSuccessHandler successHandler;
+
+    @Autowired
     private UserDetailsService userDetailsService;
 
     @Bean
@@ -46,7 +49,9 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .formLogin()
                 .loginPage("/login")
+
                 .usernameParameter("email").passwordParameter("password")
+                .successHandler(successHandler)
                 .permitAll()
 
                 .and()
