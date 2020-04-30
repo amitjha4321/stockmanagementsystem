@@ -15,6 +15,7 @@ public class User {
     private String fname;
     private String mname;
     private String lname;
+    @Column(unique=true)
     private String email;
     private String password;
     private String phone;
@@ -24,7 +25,8 @@ public class User {
 
     //private String base64EncodedImage;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+//, cascade = CascadeType.ALL
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private List<Role> roles;
 

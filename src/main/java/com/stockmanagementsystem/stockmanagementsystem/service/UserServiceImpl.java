@@ -55,6 +55,7 @@ public class UserServiceImpl implements UserService {
         //BeanUtils.copyProperties(userDetails,user);
 
         user.setFname(userDetails.getFname());
+        user.setMname(userDetails.getMname());
         user.setLname(userDetails.getLname());
         user.setEmail(userDetails.getEmail());
         user.setPhone(userDetails.getPhone());
@@ -68,5 +69,35 @@ public class UserServiceImpl implements UserService {
         userRepository.save(user);
         //System.out.println("++++++++++++++++++++++++++"+user);
     }
+
+    @Override
+    public User findUserByEmail(String email) {
+        return userRepository.findByEmail(email);
+    }
+
+    @Override
+    public UserDetails findUserDetailByEmail(String email) {
+        User user = userRepository.findByEmail(email);
+        UserDetails userDetails = new UserDetails();
+        userDetails.setId(user.getId());
+        userDetails.setFname(user.getFname());
+        //todo fill rest of all attributes
+        userDetails.setBase64EncodedImage(Base64.getEncoder().encodeToString(user.getDataimage()));
+        return userDetails;
+    }
+
+    @Override
+    public void deleteUserByUserName(String email) throws Exception {
+        User user=userRepository.findByEmail(email);
+        userRepository.delete(user);
+
+    }
+
+//    @Override
+//    public void delete(Integer id) {
+//        userRepository.deleteById(id);
+//        //userRepository.delete(id);
+//    }
+
 
 }

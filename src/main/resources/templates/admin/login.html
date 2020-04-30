@@ -15,6 +15,15 @@
 
   <div class="card bg-light">
     <article class="card-body mx-auto" style="max-width: 400px;">
+
+     <div style="text-align: center; font-size: 20px; color: green; font-weight: bold">
+        <span th:utext="${message}"></span>
+
+     </div>
+       <div style="text-align: center; font-size: 20px; color: green; font-weight: bold">
+
+             <span th:utext="${logoutmessage}"></span>
+          </div>
       <h4 class="card-title mt-3 text-center">Login Page</h4>
 
       <form th:action="@{/login}" method="post">

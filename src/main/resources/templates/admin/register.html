@@ -1,157 +1,192 @@
-<!DOCTYPE>
-<html xmlns="http://www.thymeleaf.org" xmlns:th="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html lang="en">
+
 <head>
-<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<!------ Include the above in your HEAD tag ---------->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Creative - Bootstrap 3 Responsive Admin Template">
+  <meta name="author" content="GeeksLabs">
+  <meta name="keyword" content="Creative, Dashboard, Admin, Template, Theme, Bootstrap, Responsive, Retina, Minimal">
+  <link rel="shortcut icon" href="img/favicon.png">
+
+  <title>User Registration Page</title>
+
+  <!-- Bootstrap CSS -->
+  <link href="/css/bootstrap.min.css" rel="stylesheet">
+  <!-- bootstrap theme -->
+  <link href="/css/bootstrap-theme.css" rel="stylesheet">
+  <!--external css-->
+  <!-- font icon -->
+  <link href="/css/elegant-icons-style.css" rel="stylesheet" />
+  <link href="/css/font-awesome.css" rel="stylesheet" />
+  <!-- Custom styles -->
+  <link href="/css/style.css" rel="stylesheet">
+  <link href="/css/style-responsive.css" rel="stylesheet" />
+
+  <!-- HTML5 shim and Respond.js IE8 support of HTML5 -->
+  <!--[if lt IE 9]>
+    <script src="/js/html5shiv.js"></script>
+    <script src="/js/respond.min.js"></script>
+    <![endif]-->
+
 </head>
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css">
 
+<body class="login-img3-body">
 
-<div class="container">
+  <div class="container">
 
-  <hr>
-
-  <div class="card bg-light">
-    <article class="card-body mx-auto" style="max-width: 400px;">
-      <h4 class="card-title mt-3 text-center">Create Account</h4>
-        <!--<p>-->
-        <!--<a href="" class="btn btn-block btn-twitter"> <i class="fab fa-twitter"></i>   Login via Twitter</a>-->
-        <!--<a href="" class="btn btn-block btn-facebook"> <i class="fab fa-facebook-f"></i>   Login via facebook</a>-->
-         <!--</p>-->
-      <!--<p class="divider-text">-->
-        <!--<span class="bg-light">OR</span>-->
-      <!--</p>-->
-      <form th:action="@{/registration}" th:object="${user}" method="post" enctype="multipart/form-data">
-        <div class="form-group input-group">
-          <div class="input-group-prepend">
-            <span class="input-group-text"> <i class="fa fa-user"></i> </span>
-          </div>
-          <input name="fname" class="form-control" placeholder="First Name" type="text">
-        </div> <!-- form-group// -->
-          <div class="form-group input-group">
-              <div class="input-group-prepend">
-                  <span class="input-group-text"> <i class="fa fa-user"></i> </span>
-              </div>
-              <input name="mname" class="form-control" placeholder="Middle Name" type="text">
-          </div>
-          <div class="form-group input-group">
-              <div class="input-group-prepend">
-                  <span class="input-group-text"> <i class="fa fa-user"></i> </span>
-              </div>
-              <input name="lname" class="form-control" placeholder="Last Name" type="text">
-          </div>
-        <div class="form-group input-group">
-          <div class="input-group-prepend">
-            <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
-          </div>
-          <input name="email" class="form-control" placeholder="Email address" type="email">
-        </div> <!-- form-group// -->
-        <div class="form-group input-group">
-          <div class="input-group-prepend">
-            <span class="input-group-text"> <i class="fa fa-phone"></i> </span>
-          </div>
-          <!--<select class="custom-select" style="max-width: 120px;">-->
-            <!--<option selected="">+971</option>-->
-            <!--<option value="1">+972</option>-->
-            <!--<option value="2">+198</option>-->
-            <!--<option value="3">+701</option>-->
-          <!--</select>-->
-          <input name="phone" class="form-control" placeholder="Phone number" type="text">
-        </div> <!-- form-group// -->
-        <!--<div class="form-group input-group">-->
-          <!--<div class="input-group-prepend">-->
-            <!--<span class="input-group-text"> <i class="fa fa-building"></i> </span>-->
-          <!--</div>-->
-          <!--&lt;!&ndash;<select class="form-control">&ndash;&gt;-->
-            <!--&lt;!&ndash;<option selected=""> Select job type</option>&ndash;&gt;-->
-            <!--&lt;!&ndash;<option>Designer</option>&ndash;&gt;-->
-            <!--&lt;!&ndash;<option>Manager</option>&ndash;&gt;-->
-            <!--&lt;!&ndash;<option>Accaunting</option>&ndash;&gt;-->
-          <!--&lt;!&ndash;</select>&ndash;&gt;-->
-        <!--</div> &lt;!&ndash; form-group end.// &ndash;&gt;-->
-          <div class="form-group input-group">
-              <div class="input-group-prepend">
-                  <span class="input-group-text"> <i class="fa fa-image"></i> </span>
-              </div>
-              <input name="image" class="form-control" placeholder="Upload Profile Image" type="file">
-              <label class="form-group input-group" >Upload image</label>
+    <form class="login-form" th:action="@{/registration}" onsubmit="return validation()" th:object="${user}" method="post" enctype="multipart/form-data" >
+      <div class="login-wrap">
+        <p class="login-img"><i class="icon_lock_alt"></i></p>
+         <div class="input-group">
+           <span class="input-group-addon"><i class="icon_profile"></i></span>
+           <input name="fname" type="text" class="form-control" placeholder="First Name" autofocus id="fname" required>
+           <span id="errorfname" class="text-danger font-weight-bold"></span>
           </div>
 
-            <div class="form-group input-group">
-                      <div class="input-group-prepend">
-                        <span class="input-group-text"> <i class="fa fa-user"></i> </span>
-                      </div>
-                     <!-- <input name="role" class="form-control" placeholder="Assign Role">-->
+         <div class="input-group">
+            <span class="input-group-addon"><i class="icon_profile"></i></span>
+            <input name="mname" type="text" class="form-control" placeholder="Middle Name" autofocus>
+         </div>
 
-                       <select th:field="*{roles}" class="form-control" name="roles[0].id">
-                        <option value="">--Assign Role--</option>
-                      <option th:each="r: ${roles}" th:value="${r.id}" th:text="${r.name}"></option>
-                      </select>
-            </div>
+        <div class="input-group">
+          <span class="input-group-addon"><i class="icon_profile"></i></span>
+          <input name="lname" type="text" class="form-control" placeholder="Last Name" autofocus id="lname" required>
+           <span id="errorlname" class="text-danger font-weight-bold"></span>
+        </div>
+
+        <div class="input-group">
+           <span class="input-group-addon"><i class="icon_profile"></i></span>
+           <input name="email" type="email" class="form-control" placeholder="Email Address" autofocus id="email" required>
+             <span id="erroremail" class="text-danger font-weight-bold"></span>
+        </div>
+
+        <div class="input-group">
+          <span class="input-group-addon"><i class="icon_profile"></i></span>
+          <input name="phone" type="number" class="form-control" placeholder="Phone Number" autofocus id="mobilenumber" required>
+            <span id="errormobilenumber" class="text-danger font-weight-bold"></span>
+        </div>
+
+        <div class="input-group">
+          <span class="input-group-addon"><i class="icon_profile"></i></span>
+          <input name="image" type="file" class="form-control" placeholder="Upload Profile Image" autofocus id="image" required>
+          <span id="errorimage" class="text-danger font-weight-bold"></span>
+        </div>
+
+        <div class="input-group">
+          <span class="input-group-addon"><i class="icon_profile"></i></span>
+
+            <select th:field="*{roles}" class="form-control" name="roles[0].id">
+                <option value="">--Assign Role--</option>
+                <option th:each="r: ${roles}" th:value="${r.id}" th:text="${r.name}"></option>
+            </select>
+        </div>
 
 
-          <!--<div class="custom-file">-->
-              <!--<input type="file" class="custom-file-input" id="customFile">-->
-              <!--<label class="custom-file-label" for="customFile">Choose file</label>-->
-          <!--</div>-->
-        <div class="form-group input-group">
-          <div class="input-group-prepend">
-            <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
-          </div>
-          <input name="password" class="form-control" placeholder="Create password" type="password">
-        </div> <!-- form-group// -->
-        <div class="form-group input-group">
-          <div class="input-group-prepend">
-            <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
-          </div>
-          <input class="form-control" placeholder="Repeat password" type="password">
-        </div> <!-- form-group// -->
-        <div class="form-group">
-          <button type="submit" name="submit" class="btn btn-primary btn-block"> Create Account  </button>
-            <!--value = " upload"-->
-        </div> <!-- form-group// -->
-        <p class="text-center">Have an account? <a href="">Log In</a> </p>
-      </form>
-    </article>
-  </div> <!-- card.// -->
+        <div class="input-group">
+          <span class="input-group-addon"><i class="icon_key_alt"></i></span>
+          <input name="password" type="password" class="form-control" placeholder="Password" id="password" required>
+           <span id="errorpassword" class="text-danger font-weight-bold"></span>
+        </div>
 
-</div>
-<!--container end.//-->
+        <div class="input-group">
+          <span class="input-group-addon"><i class="icon_key_alt"></i></span>
+          <input  type="password" class="form-control" placeholder="Confirm Password" id="confirmpassword" required>
+          <span id="errorconfirmpassword" class="text-danger font-weight-bold"></span>
+        </div>
 
-<br><br>
-<style>
-    .divider-text {
-        position: relative;
-        text-align: center;
-        margin-top: 15px;
-        margin-bottom: 15px;
+        <label class="checkbox">
+                <input type="checkbox" value="remember-me"> Remember me
+                <span class="pull-right"> <a href="#"> Forgot Password?</a></span>
+            </label>
+        <button type="submit" name="submit" class="btn btn-primary btn-block" id="btn-register"> Create Account  </button>
+           <h2><span class="text-success" th:utext="${successMessage}"></span></h2>
+      </div>
+    </form>
+    <div class="text-right">
+      <div class="credits">
+
+          Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+        </div>
+    </div>
+  </div>
+
+<script src="/js/jquery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<!--<script src="/js/register.js"></script>-->
+<script type="text/javascript">
+    function validation() {
+      var fname=document.getElementById('fname').value;
+      var lname=document.getElementById('lname').value;
+      var email=document.getElementById('email').value;
+      var mobilenumber=document.getElementById('mobilenumber').value;
+      var password=document.getElementById('password').value;
+      var confirmpassword=document.getElementById('confirmpassword').value;
+
+
+      if(fname==''){
+          document.getElementById('errorfname').innerHTML="Please fill the First Name."
+          return false;
+      }
+
+      if(fname.length<2 || fname.length>20){
+          document.getElementById('errorfname').innerHTML="First Name must be between 3 to 20 letters."
+          return false;
+      }
+      if(!isNaN(fname)){
+          document.getElementById('errorfname').innerHTML="numbers not allowed."
+                    return false;
+      }
+      if(lname==''){
+          document.getElementById('errorlname').innerHTML="Please fill the Last Name."
+          return false;
+      }
+      if(lname.length<2 || lname.length>20){
+          document.getElementById('errorlname').innerHTML="Last Name must be between 3 to 20 letters."
+          return false;
+            }
+      if(!isNaN(fname)){
+          document.getElementById('errorlname').innerHTML="numbers not allowed."
+          return false;
+            }
+      if(email==''){
+         document.getElementById('erroremail').innerHTML="Please fill the email address."
+         return false;
+      }
+      if(email.indexOf('@')<=0){
+        document.getElementById('erroremail').innerHTML="Please enter the valid email id."
+        return false;
+      }
+      if(password==''){
+         document.getElementById('errorpassword').innerHTML="Please fill the Password."
+         return false;
+      }
+      if(confirmpassword==''){
+         document.getElementById('errorconfirmpassword').innerHTML="Please fill the confirm password."
+         return false;
+      }
+      if(password!=confirmpassword){
+          document.getElementById('errorconfirmpassword').innerHTML="Password doesn't match."
+          return false;
+      }
+      if (mobilenumber.length!=10){
+           document.getElementById('errormobilenumber').innerHTML="Mobile Number must be of 10-digits."
+           return false;
+      }
+
+//      var fileinput=document.getElementById('image').value;
+//            var filepath=fileinput.value;
+//            if(filepath==""){
+//                document.getElementById('errorimage').innerHTML="Please choose image ."
+//                                         return false;
+//            }
+//            var allowedextensions=/(\.jpg|\.jpeg|\.png)$/i;
+//            if(!allowedextensions.exec(filepath)){
+//                document.getElementById('errorimage').innerHTML="Please upload only jpg or png file."
+//                          return false;
+//            }
     }
-    .divider-text span {
-        padding: 7px;
-        font-size: 12px;
-        position: relative;
-        z-index: 2;
-    }
-    .divider-text:after {
-        content: "";
-        position: absolute;
-        width: 100%;
-        border-bottom: 1px solid #ddd;
-        top: 55%;
-        left: 0;
-        z-index: 1;
-    }
-
-    .btn-facebook {
-        background-color: #405D9D;
-        color: #fff;
-    }
-    .btn-twitter {
-        background-color: #42AEEC;
-        color: #fff;
-    }
-</style>
+</script>
+</body>
 
 </html>

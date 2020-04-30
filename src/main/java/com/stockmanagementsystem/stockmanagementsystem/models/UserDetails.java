@@ -1,10 +1,13 @@
 package com.stockmanagementsystem.stockmanagementsystem.models;
 
+import javax.persistence.Id;
 import java.util.List;
 
 public class UserDetails {
+    @Id
     private int id;
     private String fname;
+    private String mname;
     private String lname;
     private String email;
     private String phone;
@@ -65,5 +68,13 @@ public class UserDetails {
 
     public void setBase64EncodedImage(String base64EncodedImage) {
         this.base64EncodedImage = base64EncodedImage;
+    }
+
+    public String getMname() {
+        return mname;
+    }
+
+    public void setMname(String mname) {
+        this.mname = mname;
     }
 }

@@ -12,4 +12,14 @@ public interface UserService {
     User findById(int id);
 
     void updateUser(UserDetails userDetails) throws Exception;
+
+    User findUserByEmail(String email);
+
+    UserDetails findUserDetailByEmail(String email);
+
+    //void delete(Integer id);
+
+    void deleteUserByUserName(String email)throws Exception;
+
+
 }

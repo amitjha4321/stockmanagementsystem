@@ -8,22 +8,31 @@ import com.stockmanagementsystem.stockmanagementsystem.repository.UserRepository
 
 import com.stockmanagementsystem.stockmanagementsystem.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.view.RedirectView;
 
 import javax.validation.Valid;
 import java.io.IOException;
+import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 
 @Controller
 public class UserController {
 
+    @Autowired
+    private BCryptPasswordEncoder encoder;
 
+    @Autowired
+    private UserDetailsService userDetailsService;
 
     @Autowired
     private UserRepository userRepository;
@@ -85,7 +94,8 @@ public class UserController {
         return "admin/register";
     }
     @RequestMapping(value = {"/registration"}, method = RequestMethod.POST)
-    public String createNewUser(@Valid User user, BindingResult bindingResult, Model model,@RequestParam("image") MultipartFile multipartFile) {
+    public RedirectView createNewUser(@Valid User user, BindingResult bindingResult, Model model, @RequestParam("image") MultipartFile multipartFile
+                                        , RedirectAttributes redir) {
 
         User userExists = userRepository.findByEmail(user.getEmail());
         if (userExists != null) {
@@ -95,10 +105,11 @@ public class UserController {
         }
         if (bindingResult.hasErrors()) {
             model.addAttribute("errormsg", "field invalid");
-            return "redirect:/register";
+            //return "redirect:/register";
         }
 
-        System.out.println(user);
+        //System.out.println(user);
+        user.setPassword(encoder.encode(user.getPassword()));
         user.setFilename(multipartFile.getOriginalFilename());
         try {
             user.setDataimage(multipartFile.getBytes());
@@ -107,8 +118,12 @@ public class UserController {
         }
         userRepository.save(user);
         model.addAttribute("successMessage", "User has been registered successfully");
-        return "/admin/login";
+        RedirectView redirectView=new RedirectView("/login",true);
+        redir.addFlashAttribute("message","User Registered Successfully!!!");
+        //return "/admin/login";
+        return redirectView;
     }
+
 
 //    @GetMapping(value = {"/login","/"})
 //    public String showLogin() {
@@ -125,11 +140,22 @@ public class UserController {
 //        }
 //    }
 
+
     @GetMapping("/userlist")
-    public String displayUserList(Model model){
+    public String displayUserList(Model model, Principal principal){
+
+        // interceptor
+
+        // principal.getName() -> logged in user's email id
+        //System.out.println("principal = " + principal.getName());
+        UserDetails userDetails = userService.findUserDetailByEmail(principal.getName());
+
+
+        //userDetailsService.loadUserByUsername()
         //List<User> userList= userRepository.findAll();
         List<UserDetails> userDetailsList=userService.findAllUsers();
         model.addAttribute("users",userDetailsList);
+        model.addAttribute("logged_in_user_base64_pic", userDetails.getBase64EncodedImage());
         return "/admin/userlist";
     }
 
@@ -144,4 +170,16 @@ public class UserController {
             userService.updateUser(user);
         return "redirect:/userlist";
     }
+
+    @RequestMapping(value = { "/delete/{email}" },method = {RequestMethod.DELETE , RequestMethod.GET})
+    public String delete(@PathVariable String email) throws Exception {
+       // userService.delete(email);
+        userService.deleteUserByUserName(email);
+        return "redirect:/userlist";
+    }
+//    @GetMapping(value = { "/delete/{userName}" })
+//    public String deleteUser(@PathVariable String userName) throws Exception {
+//        userService.deleteUserByUserName(userName);
+//        return "redirect:/list";
+//    }
 }

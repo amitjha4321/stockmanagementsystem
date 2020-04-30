@@ -3,12 +3,14 @@ package com.stockmanagementsystem.stockmanagementsystem.models;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Service;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
 public class UserPrincipal implements UserDetails {
 
+    private com.stockmanagementsystem.stockmanagementsystem.models.UserDetails userDetails;
     private User user;
 
     public UserPrincipal(User user) {
@@ -42,6 +44,12 @@ public class UserPrincipal implements UserDetails {
     public String getUsername() {
         System.out.println(user.getEmail());
         return user.getEmail();
+    }
+
+    public String getUserImage(){
+         userDetails.setBase64EncodedImage(Base64.getEncoder().encodeToString(user.getDataimage()));
+        return userDetails.getBase64EncodedImage();
+
     }
 
     @Override
