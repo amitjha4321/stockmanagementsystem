@@ -6,6 +6,7 @@ import com.stockmanagementsystem.stockmanagementsystem.utils.ReportGenerator;
 import net.sf.jasperreports.engine.JRException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -35,6 +36,7 @@ public class VendorController {
         return "/admin/vendorlist";
     }
     @GetMapping(value = "/addvendor")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public String getAddVendorForm(Model model){
         List<Vendor> retrive = vendorRepository.findAll();
         System.out.println(retrive);
@@ -44,6 +46,7 @@ public class VendorController {
     }
 
     @PostMapping(value = "/add")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public String addVendor(Vendor v,Model model){
         System.out.println("vendor post check");
         System.out.println(v);
