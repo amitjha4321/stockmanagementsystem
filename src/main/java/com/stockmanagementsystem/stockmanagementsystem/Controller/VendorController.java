@@ -70,11 +70,9 @@ public class VendorController {
         return "admin/vendorlist";
     }
     @GetMapping("/generatereport/{format}")
-    public ResponseEntity generateReport(@PathVariable String format) throws FileNotFoundException, JRException {
-         reportGenerator.exportReport(format);
+    public void generateReport(@PathVariable String format, HttpServletResponse response) throws Exception, JRException {
+         reportGenerator.exportReport(format, response);
 
-        //return "vendorlist";
-       return ResponseEntity.ok().body("generated");
     }
     @GetMapping("/generate/excelvendors")
     public void generateExcel(HttpServletResponse response) throws IOException{
@@ -82,11 +80,11 @@ public class VendorController {
         SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//dd/MM/yyyy
         Date now = new Date();
         String strDate = sdfDate.format(now);
-        //return strDate;
+
         String filenamewithtime= "attatchment; filename=" + "vendors " + strDate + ".xlsx";
-//        String time = new Timestamp(System.currentTimeMillis()).toString();
-//        time=time.substring(0,time.length()-6).replaceAll(":","");
-       // String filenamewithtime= "attatchment; filename=" + "vendors " + time + ".xlsx";
+
+//        response.setHeader("content-disposition", "inline; filename="+fileName);
+//        setting this below will make the file available only to be viewed from browser...
 
         response.setContentType("application/octet-stream");
         response.setHeader("Content-Disposition",filenamewithtime);
