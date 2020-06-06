@@ -71,7 +71,7 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
                 .logoutSuccessUrl("/login").permitAll()
                 .and()
                 .exceptionHandling().accessDeniedPage("/admin/403");
-        System.out.println("working till here....");
+        //System.out.println("working till here....");
 
     }
 }

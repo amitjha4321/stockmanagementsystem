@@ -2,12 +2,14 @@ package com.stockmanagementsystem.stockmanagementsystem.Controller;
 
 import com.stockmanagementsystem.stockmanagementsystem.models.Vendor;
 import com.stockmanagementsystem.stockmanagementsystem.repository.VendorRepository;
+import com.stockmanagementsystem.stockmanagementsystem.service.VendorPagingService;
 import com.stockmanagementsystem.stockmanagementsystem.utils.ExcelGenerator;
 import com.stockmanagementsystem.stockmanagementsystem.utils.ReportGenerator;
 import com.sun.jmx.snmp.Timestamp;
 import net.sf.jasperreports.engine.JRException;
 import org.apache.poi.util.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -38,11 +40,21 @@ public class VendorController {
     @Autowired
     private ReportGenerator reportGenerator;
 
+    @Autowired
+    private VendorPagingService vendorPagingService;
+
     @GetMapping("/vendorlist")
     public String getVendorList(Model model){
 
-        List<Vendor> vendorList = vendorRepository.findAll();
-        model.addAttribute("vendorlist",vendorList);
+        //List<Vendor> vendorList = vendorRepository.findAll();
+
+        Page<Vendor> page=vendorPagingService.listAll();
+        List<Vendor> listVendors=page.getContent();
+        System.out.println("pagination"  +listVendors);
+        model.addAttribute("vendorlist",listVendors);
+       // model.addAttribute("vendor",new Vendor());
+
+        //model.addAttribute("vendorlist",vendorList);
 
         return "/admin/vendorlist";
     }
@@ -51,8 +63,10 @@ public class VendorController {
     public String getAddVendorForm(Model model){
         List<Vendor> retrive = vendorRepository.findAll();
         System.out.println(retrive);
+
         model.addAttribute("vendors",retrive);
         model.addAttribute("vendor",new Vendor());
+
         return "/admin/addvendor";
     }
 
@@ -64,6 +78,7 @@ public class VendorController {
         vendorRepository.save(v);
         List<Vendor> retrive = vendorRepository.findAll();
         System.out.println(retrive);
+
         model.addAttribute("vendorlist",retrive);
         //model.addAttribute("success","Vendor is added");
         model.addAttribute("vendor",new Vendor());

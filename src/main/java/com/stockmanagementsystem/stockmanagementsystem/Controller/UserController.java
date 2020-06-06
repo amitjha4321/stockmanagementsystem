@@ -8,6 +8,7 @@ import com.stockmanagementsystem.stockmanagementsystem.repository.UserRepository
 
 import com.stockmanagementsystem.stockmanagementsystem.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -83,6 +84,7 @@ public class UserController {
 //        return "register";add
 //    }
     @GetMapping("/register")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public String getAddUserForm(Model model) {
         List<User> allUsers = userRepository.findAll();
         System.out.println(allUsers);
