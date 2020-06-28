@@ -31,7 +31,7 @@
                     <!--Add functionality -->
                     <li><a class="" th:href="@{/addvendor}">Add Vendor</a></li>
                     <li><a class="" th:href="@{/register}">Add User</a></li>
-                    <li><a class="" href="form_component.html">Add Purchase</a></li>
+                    <li><a class="" th:href="@{/dashboard/admin/addpurchase}">Add Purchase</a></li>
                     <li><a class="" href="form_component.html">Add Sales</a></li>
                     <li><a class="" th:href="@{/addItem}">Add Item</a></li>
                     <li><a class="" href="form_component.html">Add VendorPurchase</a></li>
@@ -47,10 +47,22 @@
                 <ul class="sub">
                     <li><a class="" th:href="@{/vendorlist}">Vendor List</a></li>
                     <li><a class="" th:href="@{/userlist}">User List</a></li>
-                    <li><a class="" href="buttons.html">Purchase List</a></li>
+                    <li><a class="" th:href="@{/dashboard/admin/purchaseList}">Purchase List</a></li>
                     <li><a class="" href="buttons.html">Sales List</a></li>
                     <li><a class="" href="grids.html">Vendor Purchaselist</a></li>
                     <li><a class="" href="grids.html">Numbering List</a></li>
+                </ul>
+            </li>
+            <li class="sub-menu">
+                <a href="javascript:;" class="">
+                     <i class="icon_documents_alt"></i>
+                     <span>Uploads</span>
+                     <span class="menu-arrow arrow_carrot-right"></span>
+                     </a>
+                     <ul class="sub">
+                     <li><a class="" th:href="@{/dashboard/admin/upload}">Upload Files</a></li>
+                     <li><a class="" href="login.html"><span>Get All Uploads</span></a></li>
+
                 </ul>
             </li>
             <li>
@@ -99,6 +111,66 @@
     </div>
 </aside>
 <!--sidebar end-->
+<script>
+        //Clone Table
+        $(document).ready(function () {
+            var count = 1;
 
+            $('.plus').on('click', function () {
+                count++;
+
+                var tblBody = $('#idJagaaBibaranTable');
+
+                var row_to_clone = tblBody.find('tr').last();
+                var row_name = row_to_clone.find('input').attr('name');
+
+                //Find the position- its in between two square brackets
+                var braces_start = row_name.indexOf('[');
+                var braces_end = row_name.indexOf(']');
+                var list_position = row_name.slice(braces_start + 1, braces_end);
+
+                var row_cloned = row_to_clone.clone(true, true).appendTo(tblBody);
+
+                console.log("list " + list_position);
+
+
+                //Clear the new textfield created
+                row_cloned.find('input').val('');
+                row_cloned.find('selected').valueOf('');
+
+                //Set new name for each added rows
+                var new_list_position = parseInt(list_position) + parseInt("1");
+
+
+
+                row_cloned.find('td').each(function () {
+
+                    var name = $(this).find(':input,:selected').attr('name');
+                    $(this).find(':input,:selected').attr('name', name.replace('[' + list_position + ']', '[' + new_list_position + ']'));
+
+                });
+
+                $('#idJagaaBibaranTable').find('tr').last().each(function () {
+
+                });
+            });
+        });
+
+        $('.minus').on('click', function () {
+            var tblBody = $('#idJagaaBibaranTable');
+            var row_to_clone = tblBody.find('tr').last();
+            //One of the <tr> contains <th> itself.
+            if (tblBody.find('tr').siblings().length > 1)
+                row_to_clone.remove();
+
+        });
+
+        // Horizontally Scroll
+        $(document).ready(function () {
+            $('#dataTable').DataTable({
+                "scrollX": true
+            });
+        });
+    </script>
 </div>
 </html>
