@@ -34,7 +34,7 @@ public class UserPrincipal implements UserDetails {
 
     @Override
     public String getPassword() {
-        System.out.println(user.getPassword());
+        //System.out.println(user.getPassword());
         return user.getPassword();
 
     }
@@ -42,7 +42,7 @@ public class UserPrincipal implements UserDetails {
 
     @Override
     public String getUsername() {
-        System.out.println(user.getEmail());
+        //System.out.println(user.getEmail());
         return user.getEmail();
     }
 
@@ -69,6 +69,8 @@ public class UserPrincipal implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return true;
+        if(user.isEnabled())
+            return true;
+        return false;
     }
 }

@@ -96,7 +96,9 @@ public class UserController {
         return "admin/register";
     }
     @RequestMapping(value = {"/registration"}, method = RequestMethod.POST)
-    public RedirectView createNewUser(@Valid User user, BindingResult bindingResult, Model model, @RequestParam("image") MultipartFile multipartFile
+    public //RedirectView
+            String
+    createNewUser(@Valid User user, BindingResult bindingResult, Model model, @RequestParam("image") MultipartFile multipartFile
                                         , RedirectAttributes redir) {
 
         User userExists = userRepository.findByEmail(user.getEmail());
@@ -120,10 +122,15 @@ public class UserController {
         }
         userRepository.save(user);
         model.addAttribute("successMessage", "User has been registered successfully");
-        RedirectView redirectView=new RedirectView("/login",true);
-        redir.addFlashAttribute("message","User Registered Successfully!!!");
+        //RedirectView redirectView=new RedirectView("/login",true);
+        //RedirectView redirectView=new RedirectView("/register?success=true",true);
+        //redir.addFlashAttribute("message","User Registered Successfully!!!");
+
         //return "/admin/login";
-        return redirectView;
+
+        //return redirectView;
+
+        return "redirect:/register?register=true";
     }
 
 
@@ -156,6 +163,7 @@ public class UserController {
         //userDetailsService.loadUserByUsername()
         //List<User> userList= userRepository.findAll();
         List<UserDetails> userDetailsList=userService.findAllUsers();
+        System.out.println(userDetails.isEnabled());
         model.addAttribute("users",userDetailsList);
         model.addAttribute("logged_in_user_base64_pic", userDetails.getBase64EncodedImage());
         return "/admin/userlist";

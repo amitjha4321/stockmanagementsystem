@@ -34,10 +34,12 @@
 <body class="login-img3-body">
 
   <div class="container">
-
+        <div style="margin-top: auto" th:if="${param.register != null}" class="alert alert-success">
+                User has been registered successfully!!!.
+        </div>
     <form class="login-form" th:action="@{/registration}" onsubmit="return validation()" th:object="${user}" method="post" enctype="multipart/form-data" >
       <div class="login-wrap">
-      <div><h6>***All fields are mandatory***</h6></div>
+      <div><h3 style="color: #df0f0c">***All fields are mandatory***</h3></div>
         <p class="login-img"><i class="icon_lock_alt"></i></p>
          <div class="input-group">
            <span class="input-group-addon"><i class="icon_profile"></i></span>

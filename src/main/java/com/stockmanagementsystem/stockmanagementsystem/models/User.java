@@ -20,6 +20,7 @@ public class User {
     private String password;
     private String phone;
     private String filename;
+    private boolean isEnabled;
     @Lob
     private byte [] dataimage;
 
@@ -33,7 +34,9 @@ public class User {
     public User() {
     }
 
-    public User(String fname, String mname, String lname, String email, String password, String phone, String filename, byte[] dataimage, List<Role> roles) {
+    public User(String fname, String mname, String lname, String email,
+                String password, String phone, String filename, byte[] dataimage,
+                List<Role> roles, boolean isEnabled) {
         this.fname = fname;
         this.mname = mname;
         this.lname = lname;
@@ -43,6 +46,7 @@ public class User {
         this.filename = filename;
         this.dataimage = dataimage;
         this.roles = roles;
+        this.isEnabled=isEnabled;
     }
 
     public int getId() {
@@ -123,6 +127,14 @@ public class User {
 
     public void setRoles(List<Role> roles) {
         this.roles = roles;
+    }
+
+    public boolean isEnabled() {
+        return isEnabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        isEnabled = enabled;
     }
 
     @Override

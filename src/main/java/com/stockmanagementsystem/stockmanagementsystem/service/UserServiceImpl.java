@@ -31,6 +31,7 @@ public class UserServiceImpl implements UserService {
             userDetails.setEmail(user.getEmail());
             userDetails.setPhone(user.getPhone());
             userDetails.setRoles(user.getRoles());
+            userDetails.setEnabled(user.isEnabled());
             //userDetails.setRoles((Role) user.getRoles());
             if (user.getDataimage()!=null){
                 userDetails.setBase64EncodedImage(Base64.getEncoder().encodeToString(user.getDataimage()));
@@ -81,6 +82,12 @@ public class UserServiceImpl implements UserService {
         UserDetails userDetails = new UserDetails();
         userDetails.setId(user.getId());
         userDetails.setFname(user.getFname());
+        userDetails.setMname(user.getMname());
+        userDetails.setLname(user.getLname());
+        userDetails.setEmail(user.getEmail());
+        userDetails.setPhone(user.getPhone());
+        userDetails.setRoles(user.getRoles());
+        userDetails.setEnabled(user.isEnabled());
         //todo fill rest of all attributes
         userDetails.setBase64EncodedImage(Base64.getEncoder().encodeToString(user.getDataimage()));
         return userDetails;

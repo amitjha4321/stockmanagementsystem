@@ -75,6 +75,7 @@
                             <th sec:authorize="hasAuthority('ADMIN')" >Actions</th>
                              <!--<th>Edit</th>-->
                             <!-- <th>Delete</th>-->
+                            <th>Is Enabled</th>
                         </tr>
                       </thead>
 
@@ -98,6 +99,7 @@
 
                         </div>
                       </td>
+                      <td th:text ="${user.enabled}"></td>
                       <!--<td><a href="" class="btn btn-warning">Edit</a></td>-->
                       <!-- <td><a href="" class="btn btn-danger">Delete</a></td>-->
                   </tr>

@@ -13,6 +13,7 @@ public class UserDetails {
     private String phone;
     private List<Role> roles;
     private String base64EncodedImage;
+    private boolean isEnabled;
 
     public int getId() {
         return id;
@@ -76,5 +77,28 @@ public class UserDetails {
 
     public void setMname(String mname) {
         this.mname = mname;
+    }
+
+    public boolean isEnabled() {
+        return isEnabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        isEnabled = enabled;
+    }
+
+    @Override
+    public String toString() {
+        return "UserDetails{" +
+                "id=" + id +
+                ", fname='" + fname + '\'' +
+                ", mname='" + mname + '\'' +
+                ", lname='" + lname + '\'' +
+                ", email='" + email + '\'' +
+                ", phone='" + phone + '\'' +
+                ", roles=" + roles +
+                ", base64EncodedImage='" + base64EncodedImage + '\'' +
+                ", isEnabled=" + isEnabled +
+                '}';
     }
 }

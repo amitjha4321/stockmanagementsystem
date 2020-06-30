@@ -68,7 +68,7 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
                 .logout().invalidateHttpSession(true)
                 .clearAuthentication(true)
                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                .logoutSuccessUrl("/login").permitAll()
+                .logoutSuccessUrl("/login?logout=true").permitAll()
                 .and()
                 .exceptionHandling().accessDeniedPage("/admin/403");
         //System.out.println("working till here....");
