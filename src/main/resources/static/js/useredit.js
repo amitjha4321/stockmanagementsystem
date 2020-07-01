@@ -10,6 +10,7 @@ $('document').ready(function () {
             $('#lnameEdit').val(user.lname);
             $('#emailEdit').val(user.email);
             $('#phoneEdit').val(user.phone);
+            $('#enableEdit').val(user.enable);
             //$('#dataimageEdit').val(user.dataimage);
         });
 

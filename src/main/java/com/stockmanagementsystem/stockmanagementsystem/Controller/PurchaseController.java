@@ -166,7 +166,7 @@ public class PurchaseController {
         List<Purchase> allPurchased= purchaseRepository.findAll();
         model.addAttribute("allPurchased", allPurchased);
         model.addAttribute("purchase", purchaseRepository.findById(id).get());
-        return "admin/addPurchase";
+        return "admin/addPurchaseupdated";
     }
 
     @GetMapping("/downloadPurchaseInvoice/{id}")
