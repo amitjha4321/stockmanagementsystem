@@ -9,7 +9,7 @@
   <meta name="keyword" content="Creative, Dashboard, Admin, Template, Theme, Bootstrap, Responsive, Retina, Minimal">
   <link rel="shortcut icon" href="img/favicon.png">
 
-  <title>List of Vendors</title>
+  <title>Add purchase</title>
 
   <!-- Bootstrap CSS -->
   <link href="/css/bootstrap.min.css" rel="stylesheet">
@@ -23,18 +23,25 @@
   <link href="/css/style.css" rel="stylesheet">
   <link href="/css/style-responsive.css" rel="stylesheet" />
 
+
+  <style>
+
+
+  </style>
+
   <!-- HTML5 shim and Respond.js IE8 support of HTML5 -->
   <!--[if lt IE 9]>
       <script src="/js/html5shiv.js"></script>
       <script src="/js/respond.min.js"></script>
       <script src="/js/lte-ie7.js"></script>
+
     <![endif]-->
 
-          <!-- Bootstrap -->
+
+<!-- Bootstrap -->
             <link th:href="@{/vendors/bootstrap/dist/css/bootstrap.min.css}" rel="stylesheet">
             <!-- Font Awesome -->
             <link th:href="@{/vendors/font-awesome/css/font-awesome.min.css}" rel="stylesheet">
-
 
 </head>
 
@@ -70,8 +77,8 @@
                         </div>
                         <div class="x_content">
                             <br />
-                            <div th:if="${success!=null}">
-                                <strong th:text="${success}"></strong>
+                            <div th:if="${success!=null}" >
+                                <div style="text-align: center" th:text="${success}" class="alert alert-success"></div>
 
                             </div>
                             <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" th:action="@{/dashboard/admin/addPurchase}" th:object="${purchase}" method="post" enctype="multipart/form-data">
@@ -173,19 +180,43 @@
                                                 <button type="button" class="btn btn-danger btn-md btn-action minus">-</button>
                                             </div>
                                         </div>
+                                        </div>
 
+
+                                        <!--<div class="col-md-2 col-sm-2 col-xs-12">-->
+                                            <!--<label>Item name</label>-->
+                                            <!--&lt;!&ndash;<input type="text" name="orderedItems[0].name" required="required" placeholder="item name" class="form-control col-md-7 col-xs-12"></input>&ndash;&gt;-->
+
+                                                <!--<select th:field="*{orderedItems[0].itemName}" class="form-control">-->
+                                                    <!--<option value="">Select Item Name</option>-->
+                                                    <!--<option th:each="item: ${allItems}" th:value="${item.id}" th:text="${item.name}"></option>-->
+                                                <!--</select>-->
+                                            <!--&lt;!&ndash;<div class="col-md-9 col-sm-1 col-xs-12">&ndash;&gt;-->
+                                                <!--<label>Item quantity</label>-->
+                                                <!--<input type="text" name="orderedItems[0].quantity" required="required" placeholder="item quantity" class="form-control col-md-7 col-xs-12"></textarea>-->
+                                            <!--<br>-->
+                                            <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                                            <!--<label>Item Rate</label>-->
+                                            <!--<input type="text" name="orderedItems[0].itemRate" required="required" placeholder="item rate" class="form-control col-md-7 col-xs-12"></textarea>-->
+                                            <!--<br>-->
+                                            <!--<label>Manufacture date</label>-->
+                                            <!--<input type="date" name="orderedItems[0].manufactureDate" required="required" placeholder="manufacture date" class="form-control col-md-7 col-xs-12"></textarea>-->
+                                            <!--<br>-->
+                                            <!--<label>Expiry date</label>-->
+                                            <!--<input type="date" name="orderedItems[0].expiryDate" required="required" placeholder="expiry date" class="form-control col-md-7 col-xs-12"></textarea>-->
+                                        <!--</div>-->
                                     </div>
                                 </div>
 
 
-                                <div class="form-group">
+                                <!--<div class="form-group">
                                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="paymentMethod">Payment Method:  <span class="required">*</span>
                                     </label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
                                         <input type="radio" name="paymentMethod" value="full" checked>Full <br>
                                         <input type="radio" name="paymentMethod" value="partial"> Partial <br>
                                     </div>
-                                </div>
+                                </div>-->
 
                                 <div class="form-group">
                                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="amountPaid">Amount Paid:  <span class="required">*</span>
@@ -200,6 +231,7 @@
                                     </label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
                                         <select th:field="*{paymentType}" class="form-control" onchange="ShowDiv(this.value)" >
+
                                             <option value="1">Bank Cheque</option>
                                             <option value="2">Cash Payment</option>
                                             <option value="2">Bank Deposit Slip</option>
@@ -231,25 +263,25 @@
                                             <input type="number" th:field="*{chequeNumber}" required="required" class="form-control col-md-7 col-xs-12">
                                         </div>
                                     </div>
-                                    <div class="form-group">
+
+
+                                <div class="form-group">
                                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="fileUpload">File Upload:  <span class="required">*</span>
                                         </label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
 
+                                             <input type="file" name = "invoice" value="multipartFile" multiple="multiple"/>
 
-                                            <input type="file" name="invoice" >
 
                                         </div>
                                     </div>
-                                </div>
-
 
 
                                 <div class="ln_solid"></div>
                                 <div class="form-group">
                                     <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-
-                                        <button class="btn btn-warning" type="reset">Reset</button>
+                                        <button class="btn btn-primary" type="button">Cancel</button>
+                                        <button class="btn btn-primary" type="reset">Reset</button>
                                         <button type="submit" class="btn btn-success">Submit</button>
                                     </div>
                                 </div>
@@ -259,22 +291,80 @@
                     </div>
                 </div>
             </div>
-        <!-- page end-->
-      </section>
-    </section>
+            <!-- /page content -->
 
 
-  <!-- container section end -->
-  <!-- javascripts -->
-      <script src="/js/jquery.js"></script>
-      <script src="/js/bootstrap.min.js"></script>
-  <!-- nice scroll -->
-  <script src="/js/jquery.scrollTo.min.js"></script>
-  <script src="/js/jquery.nicescroll.js" type="text/javascript"></script>
-  <!--custome script for all page-->
-  <script src="/js/scripts.js"></script>
+
+        </div>
+    </div>
 
 
+
+    <!-- jQuery -->
+    <script th:src="@{/vendors/jquery/dist/jquery.min.js}"></script>
+    <!-- Bootstrap -->
+    <script th:src="@{/vendors/bootstrap/dist/js/bootstrap.min.js}"></script>
+    <!-- FastClick -->
+    <script th:src="@{/vendors/fastclick/lib/fastclick.js}"></script>
+    <!-- NProgress -->
+    <script th:src="@{/vendors/nprogress/nprogress.js}"></script>
+    <!-- Chart.js -->
+    <script th:src="@{/vendors/Chart.js/dist/Chart.min.js}"></script>
+    <!-- gauge.js -->
+    <script th:src="@{/vendors/gauge.js/dist/gauge.min.js}"></script>
+    <!-- bootstrap-progressbar -->
+    <script th:src="@{/vendors/bootstrap-progressbar/bootstrap-progressbar.min.js}"></script>
+    <!-- iCheck -->
+    <script th:src="@{/vendors/iCheck/icheck.min.js}"></script>
+    <!-- Skycons -->
+    <script th:src="@{/vendors/skycons/skycons.js}"></script>
+    <!-- Flot -->
+    <script th:src="@{/vendors/Flot/jquery.flot.js}"></script>
+    <script th:src="@{/vendors/Flot/jquery.flot.pie.js}"></script>
+    <script th:src="@{/vendors/Flot/jquery.flot.time.js}"></script>
+    <script th:src="@{/vendors/Flot/jquery.flot.stack.js}"></script>
+    <script th:src="@{/vendors/Flot/jquery.flot.resize.js}"></script>
+    <!-- Flot plugins -->
+    <script th:src="@{/vendors/flot.orderbars/js/jquery.flot.orderBars.js}"></script>
+    <script th:src="@{/vendors/flot-spline/js/jquery.flot.spline.min.js}"></script>
+    <script th:src="@{/vendors/flot.curvedlines/curvedLines.js}"></script>
+    <!-- DateJS -->
+    <script th:src="@{/vendors/DateJS/build/date.js}"></script>
+    <!-- JQVMap -->
+    <script th:src="@{/vendors/jqvmap/dist/jquery.vmap.js}"></script>
+    <script th:src="@{/vendors/jqvmap/dist/maps/jquery.vmap.world.js}"></script>
+    <script th:src="@{/vendors/jqvmap/examples/js/jquery.vmap.sampledata.js}"></script>
+    <!-- bootstrap-daterangepicker -->
+    <script th:src="@{/vendors/moment/min/moment.min.js}"></script>
+    <script th:src="@{/vendors/bootstrap-daterangepicker/daterangepicker.js}"></script>
+
+
+    <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>-->
+    <script type="text/javascript">
+
+    </script>
+
+    <!-- Custom Theme Scripts -->
+    <script th:src="@{/js/custom.min.js}"></script>
+
+
+    <!--Datatables-->
+    <script th:src="@{/vendors/datatables.net/js/jquery.dataTables.min.js}"></script>
+    <script th:src="@{/vendors/datatables.net-bs/js/dataTables.bootstrap.min.js}"></script>
+    <script th:src="@{/vendors/datatables.net-buttons/js/dataTables.buttons.min.js}"></script>
+    <script th:src="@{/vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js}"></script>
+    <script th:src="@{/vendors/datatables.net-buttons/js/buttons.flash.min.js}"></script>
+    <script th:src="@{/vendors/datatables.net-buttons/js/buttons.html5.min.js}"></script>
+    <script th:src="@{/vendors/datatables.net-buttons/js/buttons.print.min.js}"></script>
+    <script th:src="@{/vendors/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js}"></script>
+    <script th:src="@{/vendors/datatables.net-keytable/js/dataTables.keyTable.min.js}"></script>
+    <script th:src="@{/vendors/datatables.net-responsive/js/dataTables.responsive.min.js}"></script>
+    <script th:src="@{/vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js}"></script>
+    <script th:src="@{/vendors/datatables.net-scroller/js/dataTables.scroller.min.js}"></script>
+    <script th:src="@{/vendors/jszip/dist/jszip.min.js}"></script>
+    <script th:src="@{/vendors/pdfmake/build/pdfmake.min.js}"></script>
+    <script th:src="@{/vendors/pdfmake/build/vfs_fonts.js}"></script>
+    <!--Datatables end-->
 <script>
         //Clone Table
         $(document).ready(function () {
@@ -335,10 +425,88 @@
                 "scrollX": true
             });
         });
+//                     $('#cross').on('click', function () {
+//                        var hide = $('#uploadedfilediv');
+//
+//                        hide.remove();
+//
+//                    });
+
+
+               $('#cross').on('click', function (event) {
+                    var showpopup = $('#fileModal');
+                     //alert("Hello! I am an alert box!");
+                     //showpopup.show();asdfghjklllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllll
+                     //showpopup.show;
+                    // $('#fileModal').modal;
+                    showpopup.modal();
+
+               });
     </script>
 
-    <script th:src="@{/vendors/DateJS/build/date.js}"></script>
 
+    <!--<script>-->
+        <!--//Clone Table-->
+        <!--$(document).ready(function () {-->
+            <!--var count = 1;-->
+
+            <!--$('.plus').on('click', function () {-->
+                <!--count++;-->
+
+                <!--var tblBody = $('#idJagaaBibaranTable');-->
+
+                <!--var row_to_clone = tblBody.find('tr').last();-->
+                <!--var row_name = row_to_clone.find('input').attr('name');-->
+
+                <!--//Find the position- its in between two square brackets-->
+                <!--var braces_start = row_name.indexOf('[');-->
+                <!--var braces_end = row_name.indexOf(']');-->
+                <!--var list_position = row_name.slice(braces_start + 1, braces_end);-->
+
+                <!--var row_cloned = row_to_clone.clone(true, true).appendTo(tblBody);-->
+
+                <!--console.log("list " + list_position);-->
+
+
+                <!--//Clear the new textfield created-->
+                <!--row_cloned.find('input').val('');-->
+                <!--row_cloned.find('selected').valueOf('');-->
+
+                <!--//Set new name for each added rows-->
+                <!--var new_list_position = parseInt(list_position) + parseInt("1");-->
+
+
+
+                <!--row_cloned.find('td').each(function () {-->
+
+                    <!--var name = $(this).find(':input,:selected').attr('name');-->
+                    <!--$(this).find(':input,:selected').attr('name', name.replace('[' + list_position + ']', '[' + new_list_position + ']'));-->
+
+                <!--});-->
+
+                <!--$('#idJagaaBibaranTable').find('tr').last().each(function () {-->
+
+                <!--});-->
+            <!--});-->
+        <!--});-->
+
+        <!--$('.minus').on('click', function () {-->
+            <!--var tblBody = $('#idJagaaBibaranTable');-->
+            <!--var row_to_clone = tblBody.find('tr').last();-->
+            <!--//One of the <tr> contains <th> itself.-->
+            <!--if (tblBody.find('tr').siblings().length > 1)-->
+                <!--row_to_clone.remove();-->
+
+        <!--});-->
+
+        <!--// Horizontally Scroll-->
+        <!--$(document).ready(function () {-->
+            <!--$('#dataTable').DataTable({-->
+                <!--"scrollX": true-->
+            <!--});-->
+        <!--});-->
+    <!--</script>-->
+</div>
 </body>
-
 </html>
+

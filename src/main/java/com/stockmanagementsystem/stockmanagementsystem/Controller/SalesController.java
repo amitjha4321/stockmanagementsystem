@@ -1,6 +1,7 @@
 package com.stockmanagementsystem.stockmanagementsystem.Controller;
 
 import com.stockmanagementsystem.stockmanagementsystem.models.Sales;
+import com.stockmanagementsystem.stockmanagementsystem.models.UserDetails;
 import com.stockmanagementsystem.stockmanagementsystem.models.Vendor;
 import com.stockmanagementsystem.stockmanagementsystem.repository.SalesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,9 +9,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -38,22 +37,6 @@ public class SalesController {
         model.addAttribute("sale",new Sales());
         return "admin/sales";
     }
-
-//    @GetMapping("/vendorlist")
-//    public String getVendorList(Model model){
-//
-//        //List<Vendor> vendorList = vendorRepository.findAll();
-//
-//        Page<Vendor> page=vendorPagingService.listAll();
-//        List<Vendor> listVendors=page.getContent();
-//        System.out.println("pagination"  +listVendors);
-//        model.addAttribute("vendorlist",listVendors);
-//        // model.addAttribute("vendor",new Vendor());
-//
-//        //model.addAttribute("vendorlist",vendorList);
-//
-//        return "/admin/vendorlist";
-//    }
     @GetMapping("/saleslist")
     public String getSalesList(Model model){
         List<Sales> salesList=salesRepository.findAll();
@@ -61,5 +44,26 @@ public class SalesController {
         model.addAttribute("sales",salesList);
         return "/admin/saleslist";
 
+    }
+    @GetMapping("/sales/findbyid")
+    @ResponseBody
+    public Sales findById(int id){
+        return salesRepository.findById(id);
+    }
+//    @RequestMapping(value = "/users/update",method = {RequestMethod.PUT , RequestMethod.GET})
+//    public String update(UserDetails user) throws Exception {
+//        userService.updateUser(user);
+//        return "redirect:/userlist";
+//    }
+    @RequestMapping(value = "/sales/update",method = {RequestMethod.PUT,RequestMethod.GET})
+    public String update(Sales sales){
+        salesRepository.save(sales);
+        return "redirect:/saleslist";
+    }
+
+    @RequestMapping(value = "/sales/delete",method = {RequestMethod.DELETE,RequestMethod.GET})
+    public String delete(int id){
+        salesRepository.deleteById(id);
+        return "redirect:/saleslist";
     }
 }

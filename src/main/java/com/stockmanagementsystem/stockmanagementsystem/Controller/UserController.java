@@ -187,6 +187,18 @@ public class UserController {
         userService.deleteUserByUserName(email);
         return "redirect:/userlist";
     }
+
+    @RequestMapping(value ={"/user/enable/{id}"},method = {RequestMethod.PUT,RequestMethod.GET})
+    public String enable(@PathVariable int id){
+       User user= userRepository.findById(id);
+       if(user.isEnabled())
+           user.setEnabled(false);
+       else
+           user.setEnabled(true);
+       userRepository.save(user);
+
+        return "redirect:/userlist";
+    }
 //    @GetMapping(value = { "/delete/{userName}" })
 //    public String deleteUser(@PathVariable String userName) throws Exception {
 //        userService.deleteUserByUserName(userName);

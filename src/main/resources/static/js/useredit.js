@@ -24,4 +24,16 @@ $('document').ready(function () {
         $('#confirmdeletebutton').attr('href',href);
         $('#deletemodal').modal();
     });
+
+
+
+
+
+    $('table #enablebutton').on('click', function (event) {
+        event.preventDefault();
+
+        var href=$(this).attr('href');
+        $('#confirmenabledbutton').attr('href',href);
+        $('#enablemodal').modal();
+    });v
 });

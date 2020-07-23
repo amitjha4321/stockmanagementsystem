@@ -3,6 +3,8 @@ package com.stockmanagementsystem.stockmanagementsystem.Controller;
 
 import com.stockmanagementsystem.stockmanagementsystem.models.*;
 import com.stockmanagementsystem.stockmanagementsystem.repository.*;
+import com.stockmanagementsystem.stockmanagementsystem.utils.CustomMultipartImpl;
+import org.apache.tomcat.util.http.fileupload.FileItem;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.http.HttpHeaders;
@@ -12,14 +14,19 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
 @Controller
 @RequestMapping(value = "/dashboard/admin")
 public class PurchaseController {
+
+
 
     private  OrderedItemRepository orderedItemRepository;
 
@@ -55,7 +62,7 @@ public class PurchaseController {
         model.addAttribute("num" , no1.getDisplayNo());
 
         model.addAttribute("purchase", new Purchase());
-        return "admin/addpurchaseupdated";
+        return "admin/addpurchase";
     }
 
     @GetMapping(value = "/purchaseList")
@@ -149,24 +156,37 @@ public class PurchaseController {
         model.addAttribute("success", "purchase is successfully added");
         List<Purchase> allPurchased= purchaseRepository.findAll();
         model.addAttribute("allPurchased", allPurchased);
-        model.addAttribute("purchase", new Purchase());
 
-        return "admin/addpurchaseupdated";
+        model.addAttribute("purchase", new Purchase());
+        System.out.println();
+        return "admin/addpurchase";
 
     }
 
     @GetMapping("/updatePurchase/{id}")
     public String updatePurchase(@PathVariable int id, Purchase purchase, Model model){
-        System.out.println("update executed");
-        System.out.println(purchaseRepository.findById(id).get());
         List<Vendor> venorList= vendorRepository.findAll();
         model.addAttribute("vendorList", venorList);
         List<Item> allItems= itemRepository.findAll();
         model.addAttribute("allItems", allItems);
-        List<Purchase> allPurchased= purchaseRepository.findAll();
-        model.addAttribute("allPurchased", allPurchased);
-        model.addAttribute("purchase", purchaseRepository.findById(id).get());
-        return "admin/addPurchaseupdated";
+
+
+        Purchase purchase1 = purchaseRepository.findById(id).get();
+        model.addAttribute("purchase", purchase1);
+
+
+
+        MultipartFile multipartFile = new CustomMultipartImpl(purchase1.getFileUpload(),purchase1.getFileName());
+
+//        byte [] invoice = new byte[1024];
+//        InputStream inputStream= new ByteArrayInputStream(invoice);
+//        MultipartFile file = new MockMultipartFile()
+
+        model.addAttribute("multipartFile",multipartFile);
+
+
+
+        return "admin/updatepurchase";
     }
 
     @GetMapping("/downloadPurchaseInvoice/{id}")

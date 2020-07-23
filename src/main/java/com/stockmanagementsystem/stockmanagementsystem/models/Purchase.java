@@ -1,6 +1,7 @@
 package com.stockmanagementsystem.stockmanagementsystem.models;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.util.List;
@@ -21,7 +22,7 @@ public class Purchase {
     @JsonManagedReference
     private DocumentNumbering documentNumbering;
 
-    @Column(name = "poNumber", unique = true)
+    @Column(name = "poNumber")
     private int poNumber;
 
     //file upload
@@ -53,7 +54,7 @@ public class Purchase {
     private String bankName;
 
     private String chequeNumber;
-
+    @DateTimeFormat(pattern = "MM-dd-yyyy")
     private String paymentDate;
 
     @Lob
