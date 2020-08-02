@@ -91,7 +91,10 @@
 
                                     </div>
                                 </div>
+                                ===
+                                <span th:text="${purchase.orderedItems}"></span>
 
+                                ====
                                 <div class="form-group" style="display: none;">
                                     <label class="control-label col-md-3 col-sm-3 col-xs-12"
                                            for="documentNumbering">Document Numbering<span class="required">*</span>
@@ -141,23 +144,31 @@
                                                 </tr>
                                                 </thead>
                                                 <tbody>
-                                                <tr>
-                                                    <td>
-                                                        <select name="orderedItems[0].itemName.id" required="required">
-
-                                                            <option value="">Select item</option>
-                                                            <option th:each="i :${allItems}"
-                                                                    th:value="${i.id}"
-                                                                    th:text="${i.name}">
-
-                                                            </option>
-                                                        </select>
-                                                    </td>
 
 
-                                                    <td><input type="text" required="required" name="orderedItems[0].itemRate"/>
 
-                                                    <td><input type="text" required="required" name="orderedItems[0].quantity"/>
+                                                <tr th:each="p,iterStat: ${purchase.orderedItems}">
+
+
+                                                      <!--   <td th:text="${purchase.orderedItems[__${iterStat.index}__].itemRate}"></td>-->
+
+
+                                                            <td>
+                                                                <select name="orderedItems[0].itemName.id" required="required">
+
+                                                                    <option value="">Select item</option>
+                                                                    <option th:each="i :${allItems}"
+                                                                            th:value="${i.id}"
+                                                                            th:text="${i.name}">
+
+                                                                    </option>
+                                                                </select>
+                                                            </td>
+
+
+                                                    <td><input type="text" required="required" name="orderedItems[0].itemRate" th:field="${purchase.orderedItems[__${iterStat.index}__].itemRate}"/>
+
+                                                    <td><input type="text" required="required" name="orderedItems[0].quantity" th:field="${purchase.orderedItems[__${iterStat.index}__].quantity}"/>
 
 
 
@@ -177,7 +188,7 @@
                                     </div>
                                 </div>
 
-
+<!--
                                 <div class="form-group">
                                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="paymentMethod">Payment Method:  <span class="required">*</span>
                                     </label>
@@ -186,6 +197,7 @@
                                         <input type="radio" name="paymentMethod" value="partial"> Partial <br>
                                     </div>
                                 </div>
+                                -->
 
                                 <div class="form-group">
                                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="amountPaid">Amount Paid:  <span class="required">*</span>
@@ -212,6 +224,7 @@
                                     </label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
                                         <input type="date" th:field="*{paymentDate}" required="required" class="form-control col-md-7 col-xs-12">
+                                    <!--th:text="${#dates.format(user.birtdate, 'yyyy-MM-dd')}  th:field="*{paymentDate}"-->
                                     </div>
                                 </div>
 

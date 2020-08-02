@@ -11,7 +11,9 @@ public class Sales {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    private String invoiceno;
     private String customername;
+    private String solditems;
     private String date;
     private int quantity;
     private float price;
@@ -20,8 +22,10 @@ public class Sales {
     public Sales() {
     }
 
-    public Sales(String customername, String date, int quantity, float price, float rate) {
+    public Sales(String customername, String date, int quantity, float price, float rate, String invoiceno,String solditems) {
+        this.invoiceno=invoiceno;
         this.customername = customername;
+        this.solditems=solditems;
         this.date = date;
         this.quantity = quantity;
         this.price = price;
@@ -74,5 +78,21 @@ public class Sales {
 
     public void setRate(float rate) {
         this.rate = rate;
+    }
+
+    public String getInvoiceno() {
+        return invoiceno;
+    }
+
+    public void setInvoiceno(String invoiceno) {
+        this.invoiceno = invoiceno;
+    }
+
+    public String getSolditems() {
+        return solditems;
+    }
+
+    public void setSolditems(String solditems) {
+        this.solditems = solditems;
     }
 }

@@ -22,7 +22,7 @@ public class Purchase {
     @JsonManagedReference
     private DocumentNumbering documentNumbering;
 
-    @Column(name = "poNumber")
+    @Column(name = "po_number")
     private int poNumber;
 
     //file upload
@@ -54,6 +54,7 @@ public class Purchase {
     private String bankName;
 
     private String chequeNumber;
+
     @DateTimeFormat(pattern = "MM-dd-yyyy")
     private String paymentDate;
 
