@@ -21,6 +21,14 @@ public class Item {
     private String batchNumber;
 
 
+    private float itemRate;
+
+    private String manufactureDate;
+
+    private String expiryDate;
+
+
+
 
     @ManyToOne
     @JoinColumn(name = "category", nullable = false, referencedColumnName = "id")

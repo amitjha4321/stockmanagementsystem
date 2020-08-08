@@ -121,7 +121,9 @@
                                     <div class="col-md-6 col-sm-6 col-xs-12">
                                         <select th:field="*{vendor}" class="form-control">
                                             <option value="">Select a vendor</option>
-                                            <option th:each="vendor: ${vendorList}" th:value="${vendor.id}" th:text="${vendor.name}"></option>
+                                            <option th:each="vendor: ${vendorList}"
+                                             th:value="${vendor.id}"
+                                             th:text="${vendor.name}"></option>
                                         </select>
                                     </div>
                                 </div>
@@ -135,9 +137,11 @@
 
                                         <div class="table-responsive scroll">
 
-                                            <table class="table" id="idJagaaBibaranTable">
+                                            <table class="table" id="dataTable">
                                                 <thead>
                                                 <tr class="parent">
+                                                    <th>Mark</th>
+                                                    <th>Category</th>
                                                     <th>Item Name</th>
                                                     <th>Item Rate</th>
                                                     <th>Item Quantity</th>
@@ -145,19 +149,20 @@
                                                 </thead>
                                                 <tbody>
 
-
+                                                <span id="all_items_hidden" th:text="${allItemsJson}" hidden></span>
 
                                                 <tr th:each="p,iterStat: ${purchase.orderedItems}">
 
 
                                                       <!--   <td th:text="${purchase.orderedItems[__${iterStat.index}__].itemRate}"></td>-->
-
+                                                        <TD><INPUT type="checkbox" name="chk"/></TD>
 
                                                             <td>
-                                                                <select name="orderedItems[0].itemName.id" required="required">
 
-                                                                    <option value="">Select item</option>
-                                                                    <option th:each="i :${allItems}"
+                                                                <select th:id="|select_category_${iterStat.index}|" style="width: 75%" required="required" onchange="updateItemOptions(this)">
+
+                                                                    <option value="">Select Category</option>
+                                                                    <option th:each="i :${allCategories}"
                                                                             th:value="${i.id}"
                                                                             th:text="${i.name}">
 
@@ -166,9 +171,22 @@
                                                             </td>
 
 
-                                                    <td><input type="text" required="required" name="orderedItems[0].itemRate" th:field="${purchase.orderedItems[__${iterStat.index}__].itemRate}"/>
+                                                            <td>
+                                                                <select  th:id="|select_item_${iterStat.index}|" style="width: 75%" required="required">
 
-                                                    <td><input type="text" required="required" name="orderedItems[0].quantity" th:field="${purchase.orderedItems[__${iterStat.index}__].quantity}"/>
+                                                                    <option value="">Select item</option>
+                                                                    <option th:each="i :${allItems}"
+                                                                            th:value="${i.id}"
+                                                                            th:text="${i.category.name}">
+
+                                                                    </option>
+                                                                </select>
+                                                            </td>
+
+
+                                                    <td><input type="text" required="required"  th:value="${purchase.orderedItems[__${iterStat.index}__].effectiveItemRate}"/>
+
+                                                    <td><input type="text" required="required"  th:value="${purchase.orderedItems[__${iterStat.index}__].quantity}"/>
 
 
 
@@ -180,8 +198,12 @@
                                             <div>
                                             </div>
                                             <div class="box-body text-center">
-                                                <button type="button" class="btn btn-success btn-md btn-action plus">+</button>
-                                                <button type="button" class="btn btn-danger btn-md btn-action minus">-</button>
+                                               <!-- <button type="button" class="btn btn-success btn-md btn-action plus">+</button>
+                                                <button type="button" class="btn btn-danger btn-md btn-action minus">-</button>-->
+
+                                                <INPUT type="button" id="add_row" class="btn btn-success btn-md btn-action" align="center" value="+" />
+
+                                                <INPUT type="button" class="btn btn-success btn-md btn-action" value="-" onclick="deleteRow('dataTable')" />
                                             </div>
                                         </div>
 
@@ -341,58 +363,105 @@ filediv
 
 
 <script>
-        //Clone Table
         $(document).ready(function () {
-            var count = 1;
 
-            $('.plus').on('click', function () {
-                count++;
+            $('#add_row').on('click', function () {
 
-                var tblBody = $('#idJagaaBibaranTable');
+                	var table = document.getElementById("dataTable");
 
-                var row_to_clone = tblBody.find('tr').last();
-                var row_name = row_to_clone.find('input').attr('name');
+                			var rowCount = table.rows.length;
+                			var row = table.insertRow(rowCount);
 
-                //Find the position- its in between two square brackets
-                var braces_start = row_name.indexOf('[');
-                var braces_end = row_name.indexOf(']');
-                var list_position = row_name.slice(braces_start + 1, braces_end);
+                			var colCount = table.rows[0].cells.length;
 
-                var row_cloned = row_to_clone.clone(true, true).appendTo(tblBody);
+                			for(var i=0; i<colCount; i++) {
 
-                console.log("list " + list_position);
+                				var newcell	= row.insertCell(i);
+
+                				newcell.innerHTML = table.rows[1].cells[i].innerHTML;
+                				//alert(newcell.childNodes);
+
+                                console.log("column = " + i + " cell = " + newcell.childNodes[0].type);
+
+                				switch(newcell.childNodes[0].type) {
+                					case "text":
+                							newcell.childNodes[0].value = "";
+                							break;
+                					case "checkbox":
+                							newcell.childNodes[0].checked = false;
+                							break;
+                					case "select-one":
+                							newcell.childNodes[0].selectedIndex = 0;
+                							break;
+                                     default:
+                                         // select element comes here===============================================================================
+                                         if (i == 1) {//for 2nd column in row div
+                                             console.log("id = " + newcell.children[0].innerHTML);
+                                             console.log("id = " + newcell.childNodes[0]);
+
+                                             console.log(typeof newcell.childNodes[0]);
+                                             console.log("length = " + newcell.childNodes.length);
+                                             console.log("nodetype = " + newcell.childNodes[0].nodeType);
+                                             console.log("nodetype = " + newcell.childNodes[1].nodeType);
+                                             console.log("nodetype = " + newcell.childNodes[2].nodeType);
+
+                                            newcell.childNodes[1].setAttribute("id", "select_category_" + rowCount);
+                                            newcell.childNodes[1].style.width = "75%";
+
+                                             console.log("id = " + newcell.childNodes[0].id);
+                                             newcell.childNodes[1].selectedIndex = 0;
+
+                                            console.log("setting category name " + rowCount);
+                                         } else if (i == 2) {
+                                             newcell.childNodes[1].id = "select_item_" + rowCount;
+                                             newcell.childNodes[1].style.width = "75%";
 
 
-                //Clear the new textfield created
-                row_cloned.find('input').val('');
-                row_cloned.find('selected').valueOf('');
-
-                //Set new name for each added rows
-                var new_list_position = parseInt(list_position) + parseInt("1");
-
-
-
-                row_cloned.find('td').each(function () {
-
-                    var name = $(this).find(':input,:selected').attr('name');
-                    $(this).find(':input,:selected').attr('name', name.replace('[' + list_position + ']', '[' + new_list_position + ']'));
-
-                });
-
-                $('#idJagaaBibaranTable').find('tr').last().each(function () {
-
-                });
+                                            console.log("setting item name " + rowCount);
+                                            // newcell.childNodes[1].selectedIndex = 0;
+                                         }
+                				}
+                			}
             });
-        });
-
-        $('.minus').on('click', function () {
-            var tblBody = $('#idJagaaBibaranTable');
-            var row_to_clone = tblBody.find('tr').last();
-            //One of the <tr> contains <th> itself.
-            if (tblBody.find('tr').siblings().length > 1)
-                row_to_clone.remove();
 
         });
+
+
+
+		function deleteRow(tableID) {
+			try {
+                var table = document.getElementById(tableID);
+                var rowCount = table.rows.length;
+
+                var deleteRowCount = 0;
+
+                for(var i=0; i<rowCount; i++) {
+                    var row = table.rows[i];
+                    var chkbox = row.cells[0].childNodes[0];
+                    if(null != chkbox && true == chkbox.checked) {
+                        deleteRowCount++;
+                    }
+                }
+
+                if (deleteRowCount == rowCount - 1){
+                    alert("Cannot delete all entries");
+                    return;
+                }
+
+                for(var i=0; i<rowCount; i++) {
+                    var row = table.rows[i];
+                    var chkbox = row.cells[0].childNodes[0];
+                    if(null != chkbox && true == chkbox.checked) {
+
+                        table.deleteRow(i);
+                        rowCount--;
+                        i--;
+                    }
+                }
+			} catch(e) {
+				alert(e);
+			}
+		}
 
         // Horizontally Scroll
         $(document).ready(function () {
@@ -409,8 +478,38 @@ filediv
               document.getElementById('uploadedfilediv').remove();
          });
 
+         function updateItemOptions() {
 
+             var className = arguments[0].id;
 
+             console.log(className);
+
+             var classNameSuffix =  className.replace( /^\D+/g, ''); // replace all leading non-digits with nothing
+
+             categoryId = document.getElementById(className).value;
+             allItemsJson = document.getElementById("all_items_hidden").innerText;
+
+             var allItemsForCategory = [];
+
+              for (var item of JSON.parse(allItemsJson)) {
+                 if (categoryId == item.category.id) {
+                     allItemsForCategory.push(item)
+                 }
+               }
+                var selectItem = document.getElementById("select_item_" + classNameSuffix);
+                selectItem.innerHTML= "";
+
+                var element = document.createElement("option");
+                 element.innerText = "Select item";
+                 selectItem.append(element);
+
+               for (var i = 0; i < allItemsForCategory.length; i++){
+                 var item = allItemsForCategory[i];
+                 var element = document.createElement("option");
+                 element.innerText = item.name;
+                 selectItem.append(element);
+               }
+         }
 
 
 //                     $('#cross').on('click', function () {

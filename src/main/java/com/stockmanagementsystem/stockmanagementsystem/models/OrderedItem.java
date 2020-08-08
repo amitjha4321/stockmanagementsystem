@@ -16,27 +16,27 @@ public class OrderedItem {
 //    private String code;
 
     @ManyToOne
-    @JoinColumn(name = "itemName", nullable = false, referencedColumnName = "id")
+    @JoinColumn(name = "item_id", nullable = false, referencedColumnName = "id")
     @JsonManagedReference
-    private Item itemName;
+    private Item item;
 
     private int quantity;
 
-    private float itemRate;
+    private float discountPercent;
 
-    private String manufactureDate;
+    private String couponApplied;
 
-    private String expiryDate;
+    private float effectiveItemRate;
 
     public OrderedItem() {
     }
 
-    public OrderedItem(Item itemName, int quantity, float itemRate, String manufactureDate, String expiryDate) {
-        this.itemName = itemName;
+    public OrderedItem(Item item, int quantity, float effectiveItemRate, float discountPercent, String couponApplied) {
+        this.item = item;
         this.quantity = quantity;
-        this.itemRate = itemRate;
-        this.manufactureDate = manufactureDate;
-        this.expiryDate = expiryDate;
+        this.effectiveItemRate = effectiveItemRate;
+        this.discountPercent = discountPercent;
+        this.couponApplied = couponApplied;
     }
 
     public int getId() {
@@ -48,11 +48,11 @@ public class OrderedItem {
     }
 
     public Item getItemName() {
-        return itemName;
+        return item;
     }
 
-    public void setItemName(Item itemName) {
-        this.itemName = itemName;
+    public void setItemName(Item item) {
+        this.item = item;
     }
 
     public int getQuantity() {
@@ -63,39 +63,39 @@ public class OrderedItem {
         this.quantity = quantity;
     }
 
-    public float getItemRate() {
-        return itemRate;
+    public float getDiscountPercent() {
+        return discountPercent;
     }
 
-    public void setItemRate(float itemRate) {
-        this.itemRate = itemRate;
+    public void setDiscountPercent(float discountPercent) {
+        this.discountPercent = discountPercent;
     }
 
-    public String getManufactureDate() {
-        return manufactureDate;
+    public String getCouponApplied() {
+        return couponApplied;
     }
 
-    public void setManufactureDate(String manufactureDate) {
-        this.manufactureDate = manufactureDate;
+    public void setCouponApplied(String couponApplied) {
+        this.couponApplied = couponApplied;
     }
 
-    public String getExpiryDate() {
-        return expiryDate;
+    public float getEffectiveItemRate() {
+        return effectiveItemRate;
     }
 
-    public void setExpiryDate(String expiryDate) {
-        this.expiryDate = expiryDate;
+    public void setEffectiveItemRate(float effectiveItemRate) {
+        this.effectiveItemRate = effectiveItemRate;
     }
 
     @Override
     public String toString() {
         return "OrderedItem{" +
                 "id=" + id +
-                ", itemName=" + itemName +
+                ", item=" + item +
                 ", quantity=" + quantity +
-                ", itemRate=" + itemRate +
-                ", manufactureDate='" + manufactureDate + '\'' +
-                ", expiryDate='" + expiryDate + '\'' +
+                ", discountPercent=" + discountPercent +
+                ", couponApplied='" + couponApplied + '\'' +
+                ", effectiveItemRate=" + effectiveItemRate +
                 '}';
     }
 }

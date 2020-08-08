@@ -1,6 +1,7 @@
 package com.stockmanagementsystem.stockmanagementsystem.Controller;
 
 
+import com.google.gson.Gson;
 import com.stockmanagementsystem.stockmanagementsystem.models.*;
 import com.stockmanagementsystem.stockmanagementsystem.repository.*;
 import com.stockmanagementsystem.stockmanagementsystem.utils.CustomMultipartImpl;
@@ -108,7 +109,7 @@ public class PurchaseController {
         System.out.println("ordered items"+ purchase.getOrderedItems());
         for(int i=0; i<purchase.getOrderedItems().size(); i++){
             quantity=purchase.getOrderedItems().get(i).getQuantity();
-            rate= purchase.getOrderedItems().get(i).getItemRate();
+            rate= purchase.getOrderedItems().get(i).getEffectiveItemRate();
             float pp= quantity*rate;
             totalPrice += totalPrice+pp;
         }
@@ -169,7 +170,10 @@ public class PurchaseController {
         model.addAttribute("vendorList", venorList);
         List<Item> allItems= itemRepository.findAll();
         model.addAttribute("allItems", allItems);
+        model.addAttribute("allItemsJson", new Gson().toJson(allItems));
 
+        List<Category> allCategories= categoryRepository.findAll();
+        model.addAttribute("allCategories", allCategories);
 
         Purchase purchase1 = purchaseRepository.findById(id).get();
         model.addAttribute("purchase", purchase1);
