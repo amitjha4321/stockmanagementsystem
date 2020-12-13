@@ -95,4 +95,19 @@ public class Sales {
     public void setSolditems(String solditems) {
         this.solditems = solditems;
     }
+
+
+    @Override
+    public String toString() {
+        return "Sales{" +
+                "id=" + id +
+                ", invoiceno='" + invoiceno + '\'' +
+                ", customername='" + customername + '\'' +
+                ", solditems='" + solditems + '\'' +
+                ", date='" + date + '\'' +
+                ", quantity=" + quantity +
+                ", price=" + price +
+                ", rate=" + rate +
+                '}';
+    }
 }

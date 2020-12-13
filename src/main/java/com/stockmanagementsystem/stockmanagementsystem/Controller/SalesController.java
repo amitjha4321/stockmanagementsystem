@@ -1,8 +1,10 @@
 package com.stockmanagementsystem.stockmanagementsystem.Controller;
 
+import com.stockmanagementsystem.stockmanagementsystem.models.DocumentNumberingforSales;
 import com.stockmanagementsystem.stockmanagementsystem.models.Sales;
 import com.stockmanagementsystem.stockmanagementsystem.models.UserDetails;
 import com.stockmanagementsystem.stockmanagementsystem.models.Vendor;
+import com.stockmanagementsystem.stockmanagementsystem.repository.DocumentNumberingforSalesRepository;
 import com.stockmanagementsystem.stockmanagementsystem.repository.SalesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -20,10 +22,17 @@ public class SalesController {
     @Autowired
     private SalesRepository salesRepository;
 
+    @Autowired
+    private DocumentNumberingforSalesRepository documentNumberingforSalesRepository;
+
     @GetMapping("/dashboard/admin/addsales")
     @PreAuthorize("hasAuthority('ADMIN')")
     public String addSalesForm(Model model){
         List<Sales> salesList =salesRepository.findAll();
+
+        DocumentNumberingforSales dnfs= documentNumberingforSalesRepository.findById(1).get();
+        model.addAttribute("billnumber" , dnfs.getDisplayNo());
+
         model.addAttribute("sales",salesList);
         model.addAttribute("sale",new Sales());
         return "/admin/sales";
@@ -33,6 +42,28 @@ public class SalesController {
     @PreAuthorize("hasAuthority('ADMIN')")
     public String addSales(Sales sales,Model model){
         salesRepository.save(sales);
+
+        System.out.println("SSSSales" + sales);
+        DocumentNumberingforSales dnfs = documentNumberingforSalesRepository.findById(1).get();
+        dnfs.setStartingPrefixNo(dnfs.getStartingPrefixNo()+1);
+        dnfs.setStartingSuffixNo(dnfs.getStartingSuffixNo()+1);
+
+        int prefixAmt = dnfs.getPrefixNo();
+        int prefixStartingNum = dnfs.getStartingPrefixNo();
+        String prefixStr = String.format("%0" + prefixAmt + "d", prefixStartingNum);
+
+        int suffixAmt = dnfs.getSuffixNo();
+        int suffixStartingNum = dnfs.getStartingSuffixNo();
+        String suffixStr = String.format("%0" + suffixAmt + "d", suffixStartingNum);
+
+        String display = dnfs.getPrefixWord()+"-"+prefixStr+"-"+dnfs.getSuffixWord()+"-"+suffixStr;
+        dnfs.setDisplayNo(display);
+
+        documentNumberingforSalesRepository.save(dnfs);
+
+        System.out.println("DDDDDDDDDisplay " + documentNumberingforSalesRepository.findById(1).get().getDisplayNo() );
+
+        model.addAttribute("billnumber", documentNumberingforSalesRepository.findById(1).get().getDisplayNo());
         model.addAttribute("success","Sales Record is saved successfully!!!");
         model.addAttribute("sale",new Sales());
         return "admin/sales";

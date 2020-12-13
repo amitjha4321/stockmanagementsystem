@@ -84,7 +84,7 @@ public class UserController {
 //        return "register";add
 //    }
     @GetMapping("/register")
-    @PreAuthorize("hasAuthority('ADMIN')")
+   // @PreAuthorize("hasAuthority('ADMIN')")
     public String getAddUserForm(Model model) {
         List<User> allUsers = userRepository.findAll();
         System.out.println(allUsers);

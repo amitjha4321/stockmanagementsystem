@@ -155,7 +155,7 @@
 
 
                                                       <!--   <td th:text="${purchase.orderedItems[__${iterStat.index}__].itemRate}"></td>-->
-                                                        <TD><INPUT type="checkbox" name="chk"/></TD>
+                                                            <td><input type="checkbox" name="chk"/></td>
 
                                                             <td>
 
@@ -170,9 +170,9 @@
                                                                 </select>
                                                             </td>
 
-
+                                                            <span th:value="${purchase.orderedItems[__${iterStat.index}__].item}"></span>
                                                             <td>
-                                                                <select  th:id="|select_item_${iterStat.index}|" style="width: 75%" required="required">
+                                                                <select th:value="${purchase.orderedItems[__${iterStat.index}__]}" th:id="|select_item_${iterStat.index}|" style="width: 75%" required="required">
 
                                                                     <option value="">Select item</option>
                                                                     <option th:each="i :${allItems}"
@@ -187,16 +187,11 @@
                                                     <td><input type="text" required="required"  th:value="${purchase.orderedItems[__${iterStat.index}__].effectiveItemRate}"/>
 
                                                     <td><input type="text" required="required"  th:value="${purchase.orderedItems[__${iterStat.index}__].quantity}"/>
-
-
-
-
                                                 </tr>
 
                                                 </tbody>
                                             </table>
-                                            <div>
-                                            </div>
+
                                             <div class="box-body text-center">
                                                <!-- <button type="button" class="btn btn-success btn-md btn-action plus">+</button>
                                                 <button type="button" class="btn btn-danger btn-md btn-action minus">-</button>-->
@@ -206,7 +201,6 @@
                                                 <INPUT type="button" class="btn btn-success btn-md btn-action" value="-" onclick="deleteRow('dataTable')" />
                                             </div>
                                         </div>
-
                                     </div>
                                 </div>
 
@@ -296,7 +290,7 @@ filediv
 
                                         </div>
                                     </div>
-                                </div>
+
 
 
 

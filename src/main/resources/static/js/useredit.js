@@ -20,6 +20,7 @@ $('document').ready(function () {
     $('table #deleteButton').on('click', function (event) {
         event.preventDefault();
 
+
         var href=$(this).attr('href');
         $('#confirmdeletebutton').attr('href',href);
         $('#deletemodal').modal();
@@ -35,5 +36,5 @@ $('document').ready(function () {
         var href=$(this).attr('href');
         $('#confirmenabledbutton').attr('href',href);
         $('#enablemodal').modal();
-    });v
+    });
 });

@@ -1,5 +1,5 @@
 $('document').ready(function () {
-    $('table #editButton').on('click', function (event) {
+    $('#datatable').on('click', "#editButton",function (event) {
         event.preventDefault();
         var href = $(this).attr('href');
         //event.preventDefault();
